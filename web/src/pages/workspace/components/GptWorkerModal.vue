@@ -126,7 +126,7 @@ const verb = computed(() => (props.worker === undefined ? '添加' : '更新'));
   <c-modal
     :show="show"
     @update:show="$emit('update:show', $event)"
-    :title="verb + 'GPT翻译器'"
+    :title="verb + 'GPT Translator'"
   >
     <n-form
       ref="formRef"
@@ -138,7 +138,7 @@ const verb = computed(() => (props.worker === undefined ? '添加' : '更新'));
       <n-form-item-row path="id" label="名字">
         <n-input
           v-model:value="formValue.id"
-          placeholder="给你的翻译器起个名字"
+          placeholder="Give your translator a name"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>

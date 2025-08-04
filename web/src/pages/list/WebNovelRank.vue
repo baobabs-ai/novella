@@ -67,7 +67,7 @@ const commonOptionsSyosetu = [
 ];
 const descriptorsSyosetu: Descriptor = {
   '1': {
-    title: '成为小说家：流派',
+    title: 'Syosetu: Genre',
     search: false,
     options: [
       {
@@ -98,12 +98,12 @@ const descriptorsSyosetu: Descriptor = {
     ],
   },
   '2': {
-    title: '成为小说家：综合',
+    title: 'Syosetu: Overall',
     search: false,
     options: commonOptionsSyosetu,
   },
   '3': {
-    title: '成为小说家：异世界转移/转生',
+    title: 'Syosetu: Isekai/Reincarnation',
     search: false,
     options: [
       {

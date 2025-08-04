@@ -36,7 +36,7 @@ const getNextJob = () => {
   if (job !== undefined) {
     processedJobs.value.set(job.task, job);
   } else if (processedJobs.value.size === 0 && setting.value.workspaceSound) {
-    // 全部任务都已经完成
+    // All tasks have been completed
     new Audio(SoundAllTaskCompleted).play();
   }
   return job;
@@ -44,7 +44,7 @@ const getNextJob = () => {
 
 const deleteJob = (task: string) => {
   if (processedJobs.value.has(task)) {
-    message.error('任务被翻译器占用');
+    message.error('Task is occupied by translator');
     return;
   }
   workspace.deleteJob(task);
@@ -94,7 +94,7 @@ const clearCache = async () =>
 
 <template>
   <div class="layout-content">
-    <n-h1>Sakura工作区</n-h1>
+    <n-h1>Sakura Workspace</n-h1>
 
     <bulletin>
       <n-flex>
@@ -142,23 +142,24 @@ const clearCache = async () =>
       </n-ul>
     </bulletin>
 
-    <section-header title="翻译器">
+    <section-header title="Translators">
       <c-button
-        label="添加翻译器"
-        :icon="PlusOutlined"
+        label="Add Translator"
+        :round="false"
         @action="showCreateWorkerModal = true"
       />
       <c-button-confirm
-        hint="真的要清空缓存吗？"
-        label="清空缓存"
+        hint="Really want to clear cache?"
+        label="Clear Cache"
         :icon="DeleteOutlineOutlined"
         @action="clearCache"
       />
     </section-header>
 
-    <n-empty
+    <c-result
       v-if="workspaceRef.workers.length === 0"
-      description="没有翻译器"
+      status="info"
+      description="No translators"
     />
     <n-list>
       <vue-draggable
@@ -176,20 +177,20 @@ const clearCache = async () =>
       </vue-draggable>
     </n-list>
 
-    <section-header title="任务队列">
+    <section-header title="Task Queue">
       <c-button
-        label="本地书架"
+        label="Local Bookshelf"
         :icon="BookOutlined"
         @action="showLocalVolumeDrawer = true"
       />
       <c-button-confirm
-        hint="真的要清空队列吗？"
-        label="清空队列"
+        hint="Really want to clear queue?"
+        label="Clear Queue"
         :icon="DeleteOutlineOutlined"
         @action="deleteAllJobs"
       />
     </section-header>
-    <n-empty v-if="workspaceRef.jobs.length === 0" description="没有任务" />
+    <n-empty v-if="workspaceRef.jobs.length === 0" description="No tasks" />
     <n-list>
       <vue-draggable
         v-model="workspaceRef.jobs"

@@ -10,11 +10,11 @@ import OperationWenkuUpload from './components/OperationWenkuUpload.vue';
 
 const type = ref<OperationType>('web-edit');
 const typeOptions = [
-  { value: 'web-edit', label: '网络编辑' },
-  { value: 'web-edit-glossary', label: '网络编辑术语表' },
-  { value: 'wenku-edit', label: '文库编辑' },
-  { value: 'wenku-edit-glossary', label: '文库编辑术语表' },
-  { value: 'wenku-upload', label: '文库上传' },
+  { value: 'web-edit', label: 'Network Edit' },
+  { value: 'web-edit-glossary', label: 'Network Edit Glossary' },
+  { value: 'wenku-edit', label: 'Light Novel Edit' },
+  { value: 'wenku-edit-glossary', label: 'Light Novel Edit Glossary' },
+  { value: 'wenku-upload', label: 'Light Novel Upload' },
 ];
 
 const message = useMessage();
@@ -48,7 +48,7 @@ const deleteHistory = (id: string) =>
           historiesResult.value.value.items.filter((it) => it.id !== id);
       }
     }),
-    '删除',
+    'Delete',
     message,
   );
 
@@ -102,12 +102,12 @@ watch(type, () => {
         />
         <n-flex>
           <n-text>
-            于
+            At
             <n-time :time="item.createAt * 1000" type="relative" />
-            由{{ item.operator.username }}执行
+            by {{ item.operator.username }}
           </n-text>
           <n-button type="error" text @click="deleteHistory(item.id)">
-            删除
+            Delete
           </n-button>
         </n-flex>
       </n-list-item>

@@ -58,7 +58,7 @@ const queueAllVolumes = (volumes: LocalVolumeMetadata[]) => {
     type: props.type,
     shouldTop: shouldTopJob.value ?? false,
   });
-  message.info(`${success}本小说已排队，${failed}本失败`);
+  message.info(`${success} novels queued, ${failed} failed`);
 };
 
 const shouldTopJob = useKeyModifier('Control');
@@ -78,7 +78,7 @@ const queueVolume = (volumeId: string, total: number = 65536) => {
   if (success) {
     message.success('排队成功');
   } else {
-    message.error('排队失败：翻译任务已经存在');
+    message.error('Queue failed: translation task already exists');
   }
 };
 
@@ -156,8 +156,8 @@ const progressFilterFunc = computed(() => {
 
         <n-text depth="3">
           <n-time :time="volume.createAt" type="relative" />
-          / 总计 {{ volume.toc.length }} / 完成
-          {{ calculateFinished(volume) }} / 过期
+          / Total {{ volume.toc.length }} / Finished
+          {{ calculateFinished(volume) }} / Expired
           {{ calculateExpired(volume) }}
         </n-text>
 

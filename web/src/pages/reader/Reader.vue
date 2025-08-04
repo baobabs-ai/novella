@@ -94,7 +94,7 @@ const navToChapter = async (chapterId: string) => {
     if (gnid.type === 'web') {
       prefix = `/novel/${gnid.providerId}/${gnid.novelId}`;
     } else if (gnid.type === 'wenku') {
-      throw '不支持文库';
+      throw 'Light novels not supported';
     } else {
       prefix = `/workspace/reader/${encodeURIComponent(gnid.volumeId)}`;
     }
@@ -122,7 +122,7 @@ const chapterHref = computed(() => {
   if (gnid.type === 'web') {
     return WebUtil.buildChapterUrl(gnid.providerId, gnid.novelId, chapterId);
   } else if (gnid.type === 'wenku') {
-    throw '不支持文库';
+    throw 'Light novels not supported';
   } else {
     return '/workspace';
   }

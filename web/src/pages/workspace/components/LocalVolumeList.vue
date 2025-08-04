@@ -46,19 +46,19 @@ const handleSelect = (key: string) => {
 
 const downloadVolumes = async () => {
   if (sortedVolumes.value.length === 0) {
-    message.info('没有选中小说');
+    message.info('No novels selected');
     return;
   }
   const ids = sortedVolumes.value.map((it) => it.id);
   const { success, failed } = await store.downloadVolumes(ids);
-  message.info(`${success}本小说被打包，${failed}本失败`);
+  message.info(`${success} novels were packaged, ${failed} failed`);
 };
 
 const showDeleteModal = ref(false);
 
 const openDeleteModal = () => {
   if (sortedVolumes.value.length === 0) {
-    message.info('没有选中小说');
+    message.info('No novels selected');
     return;
   }
   showDeleteModal.value = true;
@@ -68,7 +68,7 @@ const deleteAllVolumes = async () => {
   const ids = sortedVolumes.value.map((it) => it.id);
   const { success, failed } = await store.deleteVolumes(ids);
   showDeleteModal.value = false;
-  message.info(`${success}本小说被删除，${failed}本失败`);
+  message.info(`${success} novels were deleted, ${failed} failed`);
 };
 
 const search = reactive({
@@ -100,7 +100,7 @@ const sortedVolumes = computed(() => {
 </script>
 
 <template>
-  <c-drawer-right title="本地小说">
+  <c-drawer-right title="Local Novels">
     <template #action>
       <bookshelf-local-add-button
         :favored-id="selectedFavored"
@@ -170,8 +170,8 @@ const sortedVolumes = computed(() => {
 
       <c-modal title="清空所有文件" v-model:show="showDeleteModal">
         <n-p>
-          这将清空你的浏览器里面保存的所有EPUB/TXT文件，包括已经翻译的章节和术语表，无法恢复。
-          你确定吗？
+          This will clear all EPUB/TXT files saved in your browser, including translated chapters and glossaries, which cannot be recovered.
+          You sure?
         </n-p>
 
         <template #action>

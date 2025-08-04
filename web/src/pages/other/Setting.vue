@@ -25,12 +25,12 @@ const playSound = (source: string) => {
 
 <template>
   <div class="layout-content">
-    <n-h1>设置</n-h1>
+    <n-h1>Settings</n-h1>
 
     <n-list bordered>
       <n-list-item>
         <n-flex vertical>
-          <b>主题</b>
+          <b>Theme</b>
           <c-radio-group
             v-model:value="setting.theme"
             :options="Setting.themeOptions"
@@ -41,66 +41,66 @@ const playSound = (source: string) => {
 
       <n-list-item>
         <n-flex vertical>
-          <b>快捷键说明</b>
+          <b>Shortcut Instructions</b>
           <n-ul>
-            <n-li>列表页面，可以使用左右方向键翻页。</n-li>
-            <n-li>GPT/Sakura排队按钮，按住Ctrl键点击，会将任务自动置顶。</n-li>
-            <n-li>阅读页面，可以使用左右方向键跳转上/下一章。</n-li>
-            <n-li>阅读页面，可以使用数字键1～4快速切换翻译。</n-li>
+            <n-li>List pages, you can use left and right arrow keys to flip pages.</n-li>
+            <n-li>GPT/Sakura queue buttons, hold Ctrl key and click to automatically top the task.</n-li>
+            <n-li>Reading pages, you can use left and right arrow keys to jump to the previous/next chapter.</n-li>
+            <n-li>On the reading page, you can use number keys 1-4 to quickly switch translations.</n-li>
           </n-ul>
         </n-flex>
       </n-list-item>
 
       <n-list-item>
         <n-flex vertical>
-          <b>网络小说目录</b>
+          <b>Web Novel Catalog</b>
           <n-checkbox v-model:checked="setting.tocCollapseInNarrowScreen">
-            目录折叠在侧边栏 (移动端)
+            Directory folded in sidebar (mobile)
           </n-checkbox>
           <n-checkbox v-model:checked="setting.tocExpandAll">
-            目录默认展开所有章节
+            Default expand all chapters
             <n-tooltip trigger="hover" placement="top" style="max-width: 400px">
               <template #trigger>
                 <n-button text @click.stop>
                   <n-icon depth="4" :component="InfoOutlined" size="12" />
                 </n-button>
               </template>
-              开启：默认展开所有章节（可能导致性能问题）
+              On: Default expand all chapters (may cause performance issues)
               <br />
-              关闭：只展开上次阅读的章节（如无记录则展开第一个章节）
+              Off: Only expand the last read chapter (if no record, expand the first chapter)
               <br />
-              不影响无分章的网络小说
+              Does not affect web novels without chapters
             </n-tooltip>
           </n-checkbox>
-          <b>评论</b>
+          <b>Comments</b>
           <n-checkbox v-model:checked="setting.hideCommmentWebNovel">
-            隐藏网络小说评论
+            Hide web novel comments
           </n-checkbox>
           <n-checkbox v-model:checked="setting.hideCommmentWenkuNovel">
-            隐藏文库小说评论
+            Hide light novel comments
           </n-checkbox>
-          <b>收藏夹</b>
+          <b>Favorites</b>
           <n-checkbox v-model:checked="setting.showTagInWebFavored">
-            显示收藏夹里网络小说的标签
+            Show tags for web novels in favorites
           </n-checkbox>
           <n-checkbox v-model:checked="setting.favoriteCreateTimeFirst">
-            收藏时间排序优先
+            Collection time sorting priority
           </n-checkbox>
         </n-flex>
       </n-list-item>
 
       <n-list-item>
         <n-flex vertical>
-          <b>工作区</b>
+          <b>Workspace</b>
           <n-checkbox v-model:checked="setting.autoTopJobWhenAddTask">
-            工作区添加时自动置顶
+            Auto-top when adding to workspace
           </n-checkbox>
         </n-flex>
       </n-list-item>
 
       <n-list-item>
         <n-flex vertical>
-          <b>列表分页方式</b>
+          <b>List Pagination Mode</b>
           <c-radio-group
             v-model:value="setting.paginationMode"
             :options="Setting.paginationModeOptions"
@@ -111,7 +111,7 @@ const playSound = (source: string) => {
 
       <n-list-item>
         <n-flex vertical>
-          <b>显示的翻译按钮</b>
+          <b>Displayed Translation Buttons</b>
           <translator-check
             v-model:value="setting.enabledTranslator"
             size="small"
@@ -121,15 +121,15 @@ const playSound = (source: string) => {
 
       <n-list-item>
         <n-flex vertical>
-          <b>工作区语音提醒</b>
+          <b>Workspace Sound Reminders</b>
           <n-flex :wrap="false" :size="0">
             <n-checkbox v-model:checked="setting.workspaceSound">
-              任务全部完成
+              All tasks completed
             </n-checkbox>
 
             [
             <c-button
-              label="点击播放"
+              label="Click to Play"
               text
               type="primary"
               @action="playSound(SoundAllTaskCompleted)"
@@ -141,15 +141,15 @@ const playSound = (source: string) => {
 
       <n-list-item>
         <n-flex vertical align="start">
-          <b>清空搜索历史</b>
+          <b>Clear Search History</b>
           <n-flex>
             <c-button
-              label="清空网络搜索历史"
+              label="Clear Web Search History"
               size="small"
               @action="clearWebSearchHistory"
             />
             <c-button
-              label="清空文库搜索历史"
+              label="Clear Light Novel Search History"
               size="small"
               @action="clearWenkuSearchHistory"
             />
@@ -159,15 +159,15 @@ const playSound = (source: string) => {
 
       <n-list-item>
         <n-flex vertical>
-          <b>语言</b>
-          简繁转换目前只覆盖web章节内容。
+          <b>Language</b>
+          Simplified/Traditional conversion currently only covers web chapter content.
           <c-radio-group
             v-model:value="setting.locale"
             :options="Setting.localeOptions"
             size="small"
           />
           <n-checkbox v-model:checked="setting.searchLocaleAware">
-            支持繁体搜索（不稳定）
+            Support traditional search (unstable)
           </n-checkbox>
         </n-flex>
       </n-list-item>

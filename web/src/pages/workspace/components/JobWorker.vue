@@ -225,7 +225,7 @@ const showEditWorkerModal = ref(false);
         />
 
         <c-icon-button
-          tooltip="设置"
+          tooltip="Settings"
           :icon="SettingsOutlined"
           @action="showEditWorkerModal = !showEditWorkerModal"
         />

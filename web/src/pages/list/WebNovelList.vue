@@ -18,10 +18,10 @@ const { whoami } = Locator.authRepository();
 
 const options = [
   {
-    label: '来源',
+    label: 'Source',
     tags: [
       'Kakuyomu',
-      '成为小说家吧',
+      'Syosetu',
       'Novelup',
       'Hameln',
       'Pixiv',
@@ -30,24 +30,24 @@ const options = [
     multiple: true,
   },
   {
-    label: '类型',
-    tags: ['全部', '连载中', '已完结', '短篇'],
+    label: 'Type',
+    tags: ['All', 'Serializing', 'Finished', 'Short Story'],
   },
   ...(whoami.value.allowNsfw
     ? [
         {
-          label: '分级',
-          tags: ['全部', '一般向', 'R18'],
+          label: 'Rating',
+          tags: ['All', 'General', 'R18'],
         },
       ]
     : []),
   {
-    label: '翻译',
-    tags: ['全部', 'GPT', 'Sakura'],
+    label: 'Translation',
+    tags: ['All', 'GPT', 'Sakura'],
   },
   {
-    label: '排序',
-    tags: ['更新', '点击', '相关'],
+    label: 'Sort',
+    tags: ['Update', 'Click', 'Related'],
   },
 ];
 
@@ -56,12 +56,12 @@ onMounted(() => favoredRepository.loadRemoteFavoreds());
 
 const loader: Loader<WebNovelOutlineDto> = (page, query, selected) => {
   if (query !== '') {
-    document.title = '网络小说 搜索：' + query;
+    document.title = 'Web Novels Search: ' + query;
   }
   const parseProviderBitFlags = (n: number): string => {
     const providerMap: { [key: string]: string } = {
       Kakuyomu: 'kakuyomu',
-      成为小说家吧: 'syosetu',
+      Syosetu: 'syosetu',
       Novelup: 'novelup',
       Hameln: 'hameln',
       Pixiv: 'pixiv',
@@ -133,7 +133,7 @@ watch(
 
 <template>
   <div class="layout-content">
-    <n-h1>网络小说</n-h1>
+    <n-h1>Web Novels</n-h1>
 
     <novel-page
       :page="page"

@@ -49,7 +49,7 @@ const lockArticle = (article: ArticleSimplified) =>
     ArticleRepository.lockArticle(article.id).then(
       () => (article.locked = true),
     ),
-    '锁定',
+    'Lock',
     message,
   );
 
@@ -58,7 +58,7 @@ const unlockArticle = (article: ArticleSimplified) =>
     ArticleRepository.unlockArticle(article.id).then(
       () => (article.locked = false),
     ),
-    '解除锁定',
+    'Unlock',
     message,
   );
 
@@ -67,7 +67,7 @@ const pinArticle = (article: ArticleSimplified) =>
     ArticleRepository.pinArticle(article.id).then(
       () => (article.pinned = true),
     ),
-    '置顶',
+    'Pin',
     message,
   );
 
@@ -76,7 +76,7 @@ const unpinArticle = (article: ArticleSimplified) =>
     ArticleRepository.unpinArticle(article.id).then(
       () => (article.pinned = false),
     ),
-    '解除置顶',
+    'Unpin',
     message,
   );
 
@@ -85,7 +85,7 @@ const hideArticle = (article: ArticleSimplified) =>
     ArticleRepository.hideArticle(article.id).then(
       () => (article.hidden = true),
     ),
-    '隐藏',
+    'Hide',
     message,
   );
 
@@ -94,27 +94,27 @@ const unhideArticle = (article: ArticleSimplified) =>
     ArticleRepository.unhideArticle(article.id).then(
       () => (article.hidden = false),
     ),
-    '解除隐藏',
+    'Unhide',
     message,
   );
 
 const deleteArticle = (article: ArticleSimplified) =>
-  doAction(ArticleRepository.deleteArticle(article.id), '删除', message);
+  doAction(ArticleRepository.deleteArticle(article.id), 'Delete', message);
 </script>
 
 <template>
   <div class="layout-content">
-    <n-h1>论坛</n-h1>
+    <n-h1>Forum</n-h1>
 
     <router-link to="/forum-edit">
       <c-button
-        label="发布文章"
+        label="Publish Article"
         :icon="PlusOutlined"
         style="margin-bottom: 16px"
       />
     </router-link>
 
-    <c-action-wrapper title="版块" style="margin-bottom: 20px">
+    <c-action-wrapper title="Category" style="margin-bottom: 20px">
       <c-radio-group
         :value="category"
         @update-value="onUpdateCategory"
@@ -126,8 +126,8 @@ const deleteArticle = (article: ArticleSimplified) =>
       <n-table :bordered="false" style="margin-top: 24px">
         <thead>
           <tr>
-            <th><b>标题</b></th>
-            <th class="article-number"><b>查看/回复</b></th>
+            <th><b>Title</b></th>
+            <th class="article-number"><b>Views/Comments</b></th>
           </tr>
         </thead>
         <tbody>
@@ -145,18 +145,18 @@ const deleteArticle = (article: ArticleSimplified) =>
                   :component="LockOutlined"
                 />
                 <c-a :to="`/forum/${article.id}`">
-                  <n-text v-if="article.hidden" depth="3">[隐藏]</n-text>
+                  <n-text v-if="article.hidden" depth="3">[Hidden]</n-text>
                   <n-text
                     v-else-if="isBlocked(article.user.username)"
                     depth="3"
                   >
-                    [屏蔽]
+                    [Blocked]
                   </n-text>
                   <b v-else>{{ article.title }}</b>
                 </c-a>
               </n-flex>
               <n-text style="font-size: 12px">
-                {{ article.updateAt === article.createAt ? '发布' : '更新' }}于
+                {{ article.updateAt === article.createAt ? 'Published' : 'Updated' }} on
                 <n-time :time="article.updateAt * 1000" type="relative" />
                 by {{ article.user.username }}
               </n-text>
@@ -166,12 +166,12 @@ const deleteArticle = (article: ArticleSimplified) =>
                   v-if="article.locked"
                   size="tiny"
                   secondary
-                  label="解除锁定"
+                  label="Unlock"
                   @action="unlockArticle(article)"
                 />
                 <c-button
                   v-else
-                  label="锁定"
+                  label="Lock"
                   size="tiny"
                   secondary
                   @action="lockArticle(article)"
@@ -179,14 +179,14 @@ const deleteArticle = (article: ArticleSimplified) =>
 
                 <c-button
                   v-if="article.pinned"
-                  label="解除置顶"
+                  label="Unpin"
                   size="tiny"
                   secondary
                   @action="unpinArticle(article)"
                 />
                 <c-button
                   v-else
-                  label="置顶"
+                  label="Pin"
                   size="tiny"
                   secondary
                   @action="pinArticle(article)"
@@ -194,14 +194,14 @@ const deleteArticle = (article: ArticleSimplified) =>
 
                 <c-button
                   v-if="article.hidden"
-                  label="解除隐藏"
+                  label="Unhide"
                   secondary
                   size="tiny"
                   @action="unhideArticle(article)"
                 />
                 <c-button
                   v-else
-                  label="隐藏"
+                  label="Hide"
                   secondary
                   size="tiny"
                   @action="hideArticle(article)"
@@ -210,7 +210,7 @@ const deleteArticle = (article: ArticleSimplified) =>
                 <c-button
                   size="tiny"
                   secondary
-                  label="删除"
+                  label="Delete"
                   type="error"
                   @action="deleteArticle(article)"
                 />

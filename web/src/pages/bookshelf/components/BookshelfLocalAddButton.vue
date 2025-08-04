@@ -27,11 +27,11 @@ const beforeUpload = ({ file }: { file: UploadFileInfo }) => {
       file.name.endsWith('.epub')
     )
   ) {
-    message.error(`上传失败:文件类型不允许\n文件名： ${file.name}`);
+    message.error(`Upload failed: File type not allowed\nFile name: ${file.name}`);
     return false;
   }
   if (file.file?.size && file.file.size > 1024 * 1024 * 100) {
-    message.error(`上传失败:文件大小不能超过100MB\n文件名: ${file.name}`);
+    message.error(`Upload failed: File size cannot exceed 100MB\nFile name: ${file.name}`);
     return false;
   }
 };
@@ -45,7 +45,7 @@ const customRequest = ({
     .addVolume(file.file!, props.favoredId ?? 'default')
     .then(onFinish)
     .catch((error) => {
-      message.error(`上传失败:${error}\n文件名: ${file.name}`);
+      message.error(`Upload failed:${error}\nFile name: ${file.name}`);
       onError();
     });
 };
@@ -67,7 +67,7 @@ const customRequest = ({
       </template>
       支持拖拽上传Epub/Txt/Srt文件
       <br />
-      百度/有道/GPT支持韩语/英语小说
+      Baidu/Youdao/GPT supports Korean/English novels
     </n-tooltip>
   </n-upload>
   <DropZone
