@@ -99,24 +99,24 @@ const clearCache = async () =>
     <bulletin>
       <n-flex>
         <c-a to="/forum/656d60530286f15e3384fcf8" target="_blank">
-          本地部署教程
+          Local Deployment Tutorial
         </c-a>
         /
         <span>
           <c-a to="/forum/65719bf16843e12bd3a4dc98" target="_blank">
-            AutoDL教程
+            AutoDL Tutorial
           </c-a>
           :
           <n-a
             href="https://www.autodl.com/console/instance/list"
             target="_blank"
           >
-            控制台
+            Console
           </n-a>
         </span>
       </n-flex>
 
-      <n-p>允许上传的模型如下，禁止一切试图突破上传检查的操作。</n-p>
+      <n-p>The following models are allowed to upload, all attempts to bypass upload checks are prohibited.</n-p>
       <n-ul>
         <n-li
           v-for="({ repo }, model) in SakuraTranslator.allowModels"
@@ -134,7 +134,7 @@ const clearCache = async () =>
             target="_blank"
             :href="`https://hf-mirror.com/${repo}/blob/main/${model}.gguf`"
           >
-            国内镜像
+            Domestic Mirror
           </n-a>
           ]
           {{ model }}

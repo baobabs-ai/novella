@@ -154,7 +154,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
   />
 
   <c-modal
-    title="编辑术语表"
+    title="Edit Glossary"
     v-model:show="showGlossaryModal"
     :extra-height="120"
   >
@@ -195,26 +195,26 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
           v-model:value="importGlossaryRaw"
           type="textarea"
           size="small"
-          placeholder="批量导入术语表"
+          placeholder="Batch import glossary"
           :input-props="{ spellcheck: false }"
           :rows="1"
         />
 
         <n-flex align="center" :wrap="false">
           <c-button
-            label="导出"
+            label="Export"
             :round="false"
             size="small"
             @action="exportGlossary"
           />
           <c-button
-            label="导入"
+            label="Import"
             :round="false"
             size="small"
             @action="importGlossary"
           />
           <c-button
-            label="下载json文件"
+            label="Download JSON file"
             :round="false"
             size="small"
             @action="downloadGlossaryAsJsonFile"
@@ -223,7 +223,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
             v-if="whoami.isMaintainer"
             secondary
             type="error"
-            label="清空"
+            label="Clear"
             :round="false"
             size="small"
             @action="clearTerm"
@@ -281,7 +281,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
     </n-table>
 
     <template #action>
-      <c-button label="提交" type="primary" @action="submitGlossary()" />
+      <c-button label="Submit" type="primary" @action="submitGlossary()" />
     </template>
   </c-modal>
 </template>

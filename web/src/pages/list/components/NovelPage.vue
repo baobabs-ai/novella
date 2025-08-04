@@ -152,7 +152,7 @@ const invertSelection = (optionIndex: number) => {
     vertical
     style="width: 100%; margin-top: 8px"
   >
-    <c-action-wrapper v-if="search !== undefined" title="搜索" size="large">
+    <c-action-wrapper v-if="search !== undefined" title="Search" size="large">
       <input-with-suggestion
         v-model:value="queryEdit"
         :suggestions="search.suggestions"

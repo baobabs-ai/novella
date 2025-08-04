@@ -137,7 +137,7 @@ defineExpose({
             <n-text type="warning" v-if="item.favored">
               <n-icon :size="10" :component="StarFilled" />
             </n-text>
-            收藏于：{{ favoredTitleMap.get(item.favored) || '未知收藏夹' }} /
+            Favorited in: {{ favoredTitleMap.get(item.favored) || 'Unknown Collection' }} /
           </template>
           <template v-if="item.updateAt">
             本站更新于

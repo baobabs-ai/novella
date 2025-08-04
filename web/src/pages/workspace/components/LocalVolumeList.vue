@@ -107,7 +107,7 @@ const sortedVolumes = computed(() => {
         @done="emit('volumeAdd', $event)"
       />
       <c-button
-        label="下载"
+        label="Download"
         :icon="FileDownloadOutlined"
         @click="downloadVolumes"
       />
@@ -125,15 +125,15 @@ const sortedVolumes = computed(() => {
 
     <div style="padding: 24px 16px">
       <n-flex vertical>
-        <c-action-wrapper title="搜索">
+        <c-action-wrapper title="Search">
           <search-input
             v-model:value="search"
-            placeholder="搜索文件名"
+            placeholder="Search file name"
             style="max-width: 400px"
           />
         </c-action-wrapper>
 
-        <c-action-wrapper v-if="favoreds.local.length > 1" title="收藏">
+        <c-action-wrapper v-if="favoreds.local.length > 1" title="Favorites">
           <n-select
             v-model:value="selectedFavored"
             :options="favoredsOptions"
@@ -141,7 +141,7 @@ const sortedVolumes = computed(() => {
           />
         </c-action-wrapper>
 
-        <c-action-wrapper title="排序" align="center">
+        <c-action-wrapper title="Sort" align="center">
           <order-sort
             v-model:value="setting.localVolumeOrder"
             :options="Setting.localVolumeOrderOptions"
@@ -156,7 +156,7 @@ const sortedVolumes = computed(() => {
 
       <n-empty
         v-else-if="sortedVolumes.length === 0"
-        description="没有文件"
+        description="No files"
         style="margin-top: 20px"
       />
 
@@ -168,7 +168,7 @@ const sortedVolumes = computed(() => {
         </n-list>
       </n-scrollbar>
 
-      <c-modal title="清空所有文件" v-model:show="showDeleteModal">
+      <c-modal title="Clear all files" v-model:show="showDeleteModal">
         <n-p>
           This will clear all EPUB/TXT files saved in your browser, including translated chapters and glossaries, which cannot be recovered.
           You sure?

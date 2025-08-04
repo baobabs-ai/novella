@@ -10,12 +10,12 @@ const { setting } = Locator.settingRepository();
 
 const clearWebSearchHistory = () => {
   Locator.webSearchHistoryRepository().clear();
-  message.success('清空成功');
+  message.success('Clear successful');
 };
 
 const clearWenkuSearchHistory = () => {
   Locator.wenkuSearchHistoryRepository().clear();
-  message.success('清空成功');
+  message.success('Clear successful');
 };
 
 const playSound = (source: string) => {

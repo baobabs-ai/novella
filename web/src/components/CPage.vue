@@ -82,7 +82,7 @@ onKeyDown('ArrowLeft', (e) => {
   if (pageContent.value === undefined) return;
   const page = props.page;
   if (page > 1) {
-    // hacky:防止在编辑搜索栏时跳转
+    // hacky: prevent navigation when editing search bar
     if (e.target instanceof Element && e.target.tagName === 'INPUT') {
       return;
     }
@@ -95,7 +95,7 @@ onKeyDown('ArrowRight', (e) => {
   if (pageContent.value === undefined) return;
   const page = props.page;
   if (page < pageNumber.value) {
-    // hacky:防止在编辑搜索栏时跳转
+    // hacky: prevent navigation when editing search bar
     if (e.target instanceof Element && e.target.tagName === 'INPUT') {
       return;
     }

@@ -20,15 +20,15 @@ const showActionModal = ref(false);
 const message = useMessage();
 
 const userRoleOptions = [
-  { value: 'normal', label: '正常用户' },
-  { value: 'maintainer', label: '维护者' },
-  { value: 'banned', label: '封禁用户' },
+  { value: 'normal', label: 'Normal User' },
+  { value: 'maintainer', label: 'Maintainer' },
+  { value: 'banned', label: 'Banned User' },
 ];
 
 const submitRole = () => {
   doAction(
     UserRepository.updateRole(props.id, { role: userRole.value }),
-    `更新 ${props.username} 权限`,
+    `Update ${props.username} permission`,
     message,
   );
   showActionModal.value = false;
@@ -41,10 +41,10 @@ const toggleActionModal = () => {
 </script>
 
 <template>
-  <c-button :label="`更新权限`" v-bind="$attrs" @action="toggleActionModal()" />
+  <c-button :label="`Update Permission`" v-bind="$attrs" @action="toggleActionModal()" />
 
   <c-modal
-    :title="`更新 ${username} 权限`"
+    :title="`Update ${username} Permission`"
     v-model:show="showActionModal"
     :extra-height="120"
   >
@@ -56,7 +56,7 @@ const toggleActionModal = () => {
       />
     </n-flex>
     <template #action>
-      <c-button label="提交" type="primary" @action="submitRole()" />
+      <c-button label="Submit" type="primary" @action="submitRole()" />
     </template>
   </c-modal>
 </template>

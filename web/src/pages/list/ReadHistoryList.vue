@@ -49,8 +49,8 @@ const deleteHistory = (providerId: string, novelId: string) =>
 
     <n-flex style="margin-bottom: 24px">
       <c-button-confirm
-        hint="真的要清空记录吗？"
-        label="清空记录"
+        hint="Really want to clear records?"
+        label="Clear Records"
         :icon="DeleteOutlineOutlined"
         @action="clearHistory()"
       />

@@ -48,7 +48,7 @@ const downloadVolumes = async () => {
     .map((it) => it.volumeId);
 
   if (volumeIds.length === 0) {
-    message.info('列表为空，没有文件需要下载');
+    message.info('List is empty, no files need to be downloaded');
     return;
   }
 

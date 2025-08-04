@@ -23,7 +23,7 @@ const emit = defineEmits<{
 }>();
 
 // ==============================
-// 草稿
+// Draft
 // ==============================
 
 const draftOptions = ref<DropdownOption[]>([]);
@@ -39,14 +39,14 @@ watch(
         draftText: draft.text,
       });
     }
-    draftOptionsValue.push({ type: 'divider' }, { label: '清空', key: '清空' });
+    draftOptionsValue.push({ type: 'divider' }, { label: 'Clear', key: 'clear' });
     draftOptions.value = draftOptionsValue;
   },
   { immediate: true },
 );
 
 const handleSelectDraft = (key: string, option: DropdownOption) => {
-  if (key === '清空') {
+  if (key === 'clear') {
     emit('clearDraft');
   } else {
     const { elTextarea } = props;
@@ -57,7 +57,7 @@ const handleSelectDraft = (key: string, option: DropdownOption) => {
 };
 
 // ==============================
-// 编辑
+// Edit
 // ==============================
 
 const showGuideModal = ref(false);
@@ -132,15 +132,15 @@ const insert = (text: string) => {
   });
 };
 
-const formatBold = () => warp('**', '**', '粗体');
-const formatItalic = () => warp('*', '*', '斜体');
+const formatBold = () => warp('**', '**', 'Bold');
+const formatItalic = () => warp('*', '*', 'Italic');
 const formatStrikethrough = () => warp('~~', '~~', 'Strikethrough');
-const formatLink = () => warp('[', '](链接)', '');
-const formatSpoiler = () => warp('!!', '!!', '剧透');
+const formatLink = () => warp('[', '](link)', '');
+const formatSpoiler = () => warp('!!', '!!', 'Spoiler');
 
 const formatStar = () => insert('::: star 5');
 const formatCollapsibleBlock = () =>
-  warp('::: details 点击展开\n', '\n:::', '折叠内容', false);
+  warp('::: details Click to expand\n', '\n:::', 'Collapsed content', false);
 </script>
 
 <template>
@@ -151,17 +151,17 @@ const formatCollapsibleBlock = () =>
     @select="handleSelectDraft"
   >
     <n-button size="small" quaternary>
-      <n-badge :value="drafts.length" dot :offset="[8, -4]">草稿</n-badge>
+      <n-badge :value="drafts.length" dot :offset="[8, -4]">Draft</n-badge>
     </n-button>
   </n-dropdown>
 
   <MarkdownToolbarButton
-    label="粗体"
+    label="Bold"
     :icon="FormatBoldOutlined"
     @action="formatBold"
   />
   <MarkdownToolbarButton
-    label="斜体"
+    label="Italic"
     :icon="FormatItalicOutlined"
     @action="formatItalic"
   />
@@ -171,28 +171,28 @@ const formatCollapsibleBlock = () =>
     @action="formatStrikethrough"
   />
   <MarkdownToolbarButton
-    label="链接"
+    label="Link"
     :icon="LinkOutlined"
     @action="formatLink"
   />
   <MarkdownToolbarButton
-    label="剧透"
+    label="Spoiler"
     :icon="WarningAmberOutlined"
     @action="formatSpoiler"
   />
   <n-divider vertical />
   <MarkdownToolbarButton
-    label="评分"
+    label="Star"
     :icon="StarOutlineFilled"
     @action="formatStar"
   />
   <MarkdownToolbarButton
-    label="折叠"
+    label="Collapsible Block"
     :icon="MenuOpenOutlined"
     @action="formatCollapsibleBlock"
   />
   <MarkdownToolbarButton
-    label="格式帮助"
+    label="Format Help"
     :icon="HelpOutlineOutlined"
     @action="() => (showGuideModal = true)"
   />

@@ -65,7 +65,7 @@ const customRequest = ({
       <template #trigger>
         <c-button label="添加" :icon="PlusOutlined" />
       </template>
-      支持拖拽上传Epub/Txt/Srt文件
+      Support drag and drop upload of Epub/Txt/Srt files
       <br />
       Baidu/Youdao/GPT supports Korean/English novels
     </n-tooltip>
@@ -78,6 +78,6 @@ const customRequest = ({
     :custom-request="customRequest"
     @before-upload="beforeUpload"
   >
-    拖拽文件到这里上传
+    Drag files here to upload
   </DropZone>
 </template>

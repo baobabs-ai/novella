@@ -163,7 +163,7 @@ const progressFilterFunc = computed(() => {
 
         <n-flex :size="8">
           <c-button
-            label="排队"
+            label="Queue"
             size="tiny"
             secondary
             @action="queueVolume(volume.id, volume.toc.length)"
@@ -174,11 +174,11 @@ const progressFilterFunc = computed(() => {
             :to="`/workspace/reader/${encodeURIComponent(volume.id)}/0`"
             target="_blank"
           >
-            <c-button label="阅读" size="tiny" secondary />
+            <c-button label="Read" size="tiny" secondary />
           </router-link>
 
           <c-button
-            label="下载"
+            label="Download"
             size="tiny"
             secondary
             @action="downloadVolume(volume.id)"
