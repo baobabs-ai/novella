@@ -36,7 +36,7 @@ const getNextJob = () => {
   if (job !== undefined) {
     processedJobs.value.set(job.task, job);
   } else if (processedJobs.value.size === 0 && setting.value.workspaceSound) {
-    // 全部任务都已经完成
+    // All tasks have been completed
     new Audio(SoundAllTaskCompleted).play();
   }
   return job;
@@ -44,7 +44,7 @@ const getNextJob = () => {
 
 const deleteJob = (task: string) => {
   if (processedJobs.value.has(task)) {
-    message.error('任务被翻译器占用');
+    message.error('Task is occupied by translator');
     return;
   }
   workspace.deleteJob(task);
@@ -94,29 +94,29 @@ const clearCache = async () =>
 
 <template>
   <div class="layout-content">
-    <n-h1>Sakura工作区</n-h1>
+    <n-h1>Sakura Workspace</n-h1>
 
     <bulletin>
       <n-flex>
         <c-a to="/forum/656d60530286f15e3384fcf8" target="_blank">
-          本地部署教程
+          Local Deployment Tutorial
         </c-a>
         /
         <span>
           <c-a to="/forum/65719bf16843e12bd3a4dc98" target="_blank">
-            AutoDL教程
+            AutoDL Tutorial
           </c-a>
           :
           <n-a
             href="https://www.autodl.com/console/instance/list"
             target="_blank"
           >
-            控制台
+            Console
           </n-a>
         </span>
       </n-flex>
 
-      <n-p>允许上传的模型如下，禁止一切试图突破上传检查的操作。</n-p>
+      <n-p>The following models are allowed to upload, all attempts to bypass upload checks are prohibited.</n-p>
       <n-ul>
         <n-li
           v-for="({ repo }, model) in SakuraTranslator.allowModels"
@@ -134,7 +134,7 @@ const clearCache = async () =>
             target="_blank"
             :href="`https://hf-mirror.com/${repo}/blob/main/${model}.gguf`"
           >
-            国内镜像
+            Domestic Mirror
           </n-a>
           ]
           {{ model }}
@@ -142,23 +142,24 @@ const clearCache = async () =>
       </n-ul>
     </bulletin>
 
-    <section-header title="翻译器">
+    <section-header title="Translators">
       <c-button
-        label="添加翻译器"
-        :icon="PlusOutlined"
+        label="Add Translator"
+        :round="false"
         @action="showCreateWorkerModal = true"
       />
       <c-button-confirm
-        hint="真的要清空缓存吗？"
-        label="清空缓存"
+        hint="Really want to clear cache?"
+        label="Clear Cache"
         :icon="DeleteOutlineOutlined"
         @action="clearCache"
       />
     </section-header>
 
-    <n-empty
+    <c-result
       v-if="workspaceRef.workers.length === 0"
-      description="没有翻译器"
+      status="info"
+      description="No translators"
     />
     <n-list>
       <vue-draggable
@@ -176,20 +177,20 @@ const clearCache = async () =>
       </vue-draggable>
     </n-list>
 
-    <section-header title="任务队列">
+    <section-header title="Task Queue">
       <c-button
-        label="本地书架"
+        label="Local Bookshelf"
         :icon="BookOutlined"
         @action="showLocalVolumeDrawer = true"
       />
       <c-button-confirm
-        hint="真的要清空队列吗？"
-        label="清空队列"
+        hint="Really want to clear queue?"
+        label="Clear Queue"
         :icon="DeleteOutlineOutlined"
         @action="deleteAllJobs"
       />
     </section-header>
-    <n-empty v-if="workspaceRef.jobs.length === 0" description="没有任务" />
+    <n-empty v-if="workspaceRef.jobs.length === 0" description="No tasks" />
     <n-list>
       <vue-draggable
         v-model="workspaceRef.jobs"

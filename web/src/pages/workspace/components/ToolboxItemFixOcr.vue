@@ -61,9 +61,9 @@ const fixOcr = () =>
 
 <template>
   <n-flex vertical>
-    OCR输出的文本通常存在额外的换行符，导致翻译器错误。当前修复方法是检测每一行的结尾是否是字符（汉字/日文假名/韩文字符/英文字母/全角半角逗号），如果是的话则删除行尾的换行符。
+    OCR output text usually contains extra line breaks, causing translator errors. The current fix method is to detect if the end of each line is a character (Chinese characters/Japanese kana/Korean characters/English letters/full-width and half-width commas), and if so, delete the line break at the end of the line.
     <n-flex>
-      <c-button label="修复" @action="fixOcr" />
+      <c-button label="Fix" @action="fixOcr" />
     </n-flex>
   </n-flex>
 </template>

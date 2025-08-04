@@ -32,7 +32,7 @@ onMounted(() => favoredRepository.loadRemoteFavoreds());
 
 const loader: Loader<WenkuNovelOutlineDto> = (page, query, selected) => {
   if (query !== '') {
-    document.title = '文库小说 搜索：' + query;
+    document.title = 'Light Novels Search: ' + query;
   }
   let level = selected[0] + 1;
   if (!whoami.value.allowNsfw && level === 2) {
@@ -86,11 +86,11 @@ watch(
 
 <template>
   <div class="layout-content">
-    <n-h1>文库小说</n-h1>
+    <n-h1>Light Novels</n-h1>
 
     <router-link to="/wenku-edit">
       <c-button
-        label="新建小说"
+        label="Create Novel"
         :icon="PlusOutlined"
         style="margin-bottom: 8px"
       />

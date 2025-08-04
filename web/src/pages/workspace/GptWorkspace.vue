@@ -37,7 +37,7 @@ const getNextJob = () => {
 
 const deleteJob = (task: string) => {
   if (processedJobs.value.has(task)) {
-    message.error('任务被翻译器占用');
+    message.error('Task is occupied by translator');
     return;
   }
   workspace.deleteJob(task);
@@ -84,11 +84,11 @@ const clearCache = async () =>
 
 <template>
   <div class="layout-content">
-    <n-h1>GPT工作区</n-h1>
+    <n-h1>GPT Workspace</n-h1>
 
     <bulletin>
       <n-flex>
-        <c-a to="/forum/64f3d63f794cbb1321145c07" target="_blank">使用教程</c-a>
+        <c-a to="/forum/64f3d63f794cbb1321145c07" target="_blank">Usage Tutorial</c-a>
         /
         <n-a href="https://chat.deepseek.com" target="_blank">
           DeepSeek Chat
@@ -98,27 +98,28 @@ const clearCache = async () =>
           DeepSeek API
         </n-a>
       </n-flex>
-      <n-p>不再支持GPT web，推荐使用deepseek API，价格很低。</n-p>
-      <n-p>本地小说支持韩语等其他语种，网络小说/文库小说暂时只允许日语。</n-p>
+      <n-p>GPT web is no longer supported, DeepSeek API is recommended, the price is very low.</n-p>
+      <n-p>Local novels support Korean and other languages, web novels/light novels currently only allow Japanese.</n-p>
     </bulletin>
 
-    <section-header title="翻译器">
+    <section-header title="Translators">
       <c-button
-        label="添加翻译器"
-        :icon="PlusOutlined"
+        label="Add Translator"
+        :round="false"
         @action="showCreateWorkerModal = true"
       />
       <c-button-confirm
-        hint="真的要清空缓存吗？"
-        label="清空缓存"
+        hint="Really want to clear cache?"
+        label="Clear Cache"
         :icon="DeleteOutlineOutlined"
         @action="clearCache"
       />
     </section-header>
 
-    <n-empty
+    <c-result
       v-if="workspaceRef.workers.length === 0"
-      description="没有翻译器"
+      status="info"
+      description="No translators"
     />
     <n-list>
       <vue-draggable
@@ -136,20 +137,20 @@ const clearCache = async () =>
       </vue-draggable>
     </n-list>
 
-    <section-header title="任务队列">
+    <section-header title="Task Queue">
       <c-button
-        label="本地书架"
+        label="Local Bookshelf"
         :icon="BookOutlined"
         @action="showLocalVolumeDrawer = true"
       />
       <c-button-confirm
-        hint="真的要清空队列吗？"
-        label="清空队列"
+        hint="Really want to clear queue?"
+        label="Clear Queue"
         :icon="DeleteOutlineOutlined"
         @action="deleteAllJobs"
       />
     </section-header>
-    <n-empty v-if="workspaceRef.jobs.length === 0" description="没有任务" />
+    <n-empty v-if="workspaceRef.jobs.length === 0" description="No tasks" />
     <n-list>
       <vue-draggable
         v-model="workspaceRef.jobs"

@@ -25,7 +25,7 @@ import bannerUrl from '@/image/banner.webp';
           filter: drop-shadow(0.05em 0.05em black);
         "
       >
-        轻小说机翻机器人
+        Light Novel Machine Translation Robot
       </n-h1>
 
       <div style="margin-top: 50px">

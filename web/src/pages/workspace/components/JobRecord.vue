@@ -28,7 +28,7 @@ const isFinished = computed(() => TranslateJob.isFinished(props.job));
         />
 
         <c-icon-button
-          tooltip="删除"
+          tooltip="Delete"
           :icon="DeleteOutlineOutlined"
           type="error"
           @action="emit('deleteJob')"

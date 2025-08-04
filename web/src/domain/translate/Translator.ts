@@ -86,7 +86,7 @@ export class Translator {
             oldSegZh,
           });
           if (segJp.length !== segZh.length) {
-            throw new Error('翻译结果行数不匹配。不应当出现，请反馈给站长。');
+            throw new Error('Translation result line count does not match. This should not happen, please report to the administrator.');
           }
           segsZh.push(segZh);
         }

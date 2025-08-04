@@ -61,7 +61,7 @@ const reply = async () => {
         type="primary"
         @action="reply()"
       />
-      <c-button label="取消" :round="false" @action="emit('cancel')" />
+      <c-button label="Cancel" :round="false" @action="emit('cancel')" />
     </n-flex>
   </div>
 </template>

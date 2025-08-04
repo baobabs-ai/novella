@@ -10,7 +10,7 @@ const guides = [
   `
 **粗体**
 *斜体*
-~~删除线~~
+~~Strikethrough~~
 [链接](https://www.esjzone.cc/)`,
 
   `
@@ -42,7 +42,7 @@ const guides = [
 
 <template>
   <c-modal title="格式教程">
-    <n-p>评论不支持标题、表格、图片等高级功能。</n-p>
+    <n-p>Comments do not support advanced features such as titles, tables, images, etc.</n-p>
     <n-table :bordered="false" style="table-layout: fixed; width: 100%">
       <thead>
         <tr>

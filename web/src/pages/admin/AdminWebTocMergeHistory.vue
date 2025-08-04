@@ -33,7 +33,7 @@ const deleteDetail = (id: string) =>
         );
       }
     }),
-    '删除',
+    'Delete',
     message,
   );
 
@@ -105,7 +105,7 @@ watch(currentPage, (page) => loadPage(page), { immediate: true });
             {{ t.newV?.chapterId }}
           </td>
         </tr>
-        <n-button @click="deleteDetail(item.id)">删除</n-button>
+        <n-button @click="deleteDetail(item.id)">Delete</n-button>
       </table>
       <n-divider />
     </div>

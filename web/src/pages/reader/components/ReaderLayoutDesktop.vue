@@ -28,15 +28,15 @@ const emit = defineEmits<{
         style="margin-left: 20px; position: fixed; bottom: 20px"
       >
         <router-link v-if="novelUrl" :to="novelUrl">
-          <side-button text="详情" :icon="LibraryBooksOutlined" />
+          <side-button text="Details" :icon="LibraryBooksOutlined" />
         </router-link>
         <side-button
-          text="目录"
+          text="Catalog"
           :icon="FormatListBulletedOutlined"
           @click="emit('requireCatalogModal')"
         />
         <side-button
-          text="设置"
+          text="Settings"
           :icon="TuneOutlined"
           @click="emit('requireSettingModal')"
         />

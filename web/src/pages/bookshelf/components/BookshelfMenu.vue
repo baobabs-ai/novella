@@ -34,7 +34,7 @@ const menuOption = (
 const menuOptions = computed(() => {
   const localGroup = {
     type: 'group',
-    label: '本地小说',
+    label: 'Local Novels',
     children: favoreds.value.local.map(({ id, title }) =>
       menuOption('local', id, title),
     ),
@@ -42,14 +42,14 @@ const menuOptions = computed(() => {
   if (whoami.value.isSignedIn) {
     const webGroup = {
       type: 'group',
-      label: '网络小说',
+      label: 'Web Novels',
       children: favoreds.value.web.map(({ id, title }) =>
         menuOption('web', id, title),
       ),
     };
     const wenkuGroup = {
       type: 'group',
-      label: '文库小说',
+      label: 'Light Novels',
       children: favoreds.value.wenku.map(({ id, title }) =>
         menuOption('wenku', id, title),
       ),

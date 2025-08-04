@@ -21,7 +21,7 @@ const value = defineModel<string>('value', { required: true });
 useEventListener(window, 'beforeunload', (e) => {
   if (value.value.trim()) {
     e.preventDefault();
-    return '有未保存的编辑，确定要离开吗？';
+    return 'You have unsaved edits, are you sure you want to leave?';
   }
 });
 
@@ -76,7 +76,7 @@ const elEditor = useTemplateRef('editor');
           @clear-draft="clearDraft"
         />
       </template>
-      <n-tab-pane tab="编辑" :name="0" display-directive="show">
+      <n-tab-pane tab="Edit" :name="0" display-directive="show">
         <n-flex
           v-if="!isWideScreen"
           :size="0"
@@ -103,7 +103,7 @@ const elEditor = useTemplateRef('editor');
           />
         </div>
       </n-tab-pane>
-      <n-tab-pane tab="预览" :name="1">
+      <n-tab-pane tab="Preview" :name="1">
         <div style="padding: 0px 16px">
           <MarkdownView
             :mode="mode"

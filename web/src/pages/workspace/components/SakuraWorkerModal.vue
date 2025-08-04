@@ -99,7 +99,7 @@ const verb = computed(() => (props.worker === undefined ? '添加' : '更新'));
   <c-modal
     :show="show"
     @update:show="$emit('update:show', $event)"
-    :title="verb + 'Sakura翻译器'"
+    :title="verb + 'Sakura Translator'"
   >
     <n-form
       ref="formRef"
@@ -111,14 +111,14 @@ const verb = computed(() => (props.worker === undefined ? '添加' : '更新'));
       <n-form-item-row path="id" label="名字">
         <n-input
           v-model:value="formValue.id"
-          placeholder="给你的翻译器起个名字"
+          placeholder="Give your translator a name"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
       <n-form-item-row path="endpoint" label="链接">
         <n-input
           v-model:value="formValue.endpoint"
-          placeholder="翻译器的链接"
+          placeholder="Translator link"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
@@ -140,11 +140,11 @@ const verb = computed(() => (props.worker === undefined ? '添加' : '更新'));
       </n-form-item-row>
 
       <n-text type="error" style="font-size: 12px">
-        # 前文长度是临时功能，非默认500无法上传
+        # Previous segment length is a temporary feature, non-default 500 cannot upload
       </n-text>
       <br />
       <n-text depth="3" style="font-size: 12px">
-        # 分段长度还在测试中，非默认500无法上传
+        # Segment length is still being tested, non-default 500 cannot upload
         <br />
         # 链接例子：http://127.0.0.1:8080
       </n-text>

@@ -43,7 +43,7 @@ const startTask = async (
   signal?: AbortSignal,
 ) => {
   if (running.value) {
-    message.info('已有任务在运行。');
+    message.info('There is already a task running.');
     return 'fail';
   }
 
@@ -54,17 +54,17 @@ const startTask = async (
       gpt: 'GPT',
       sakura: 'Sakura',
     };
-    let label = `${idToLaber[translatorDesc.id]}翻译`;
+    let label = `${idToLaber[translatorDesc.id]} Translation`;
     const suffixParts: string[] = [];
     if (params.level === 'expire') {
-      suffixParts.push('过期章节');
+      suffixParts.push('Expired Chapters');
     } else if (params.level === 'all') {
-      suffixParts.push('全部章节');
+      suffixParts.push('All Chapters');
     } else if (params.level === 'sync') {
-      suffixParts.push('源站同步');
+      suffixParts.push('Source Sync');
     }
     if (params.forceMetadata) {
-      suffixParts.push('重翻目录');
+      suffixParts.push('Re-translate Directory');
     }
     if (suffixParts.length > 0) {
       label = label + ` [${suffixParts.join('/')}]`;
@@ -124,7 +124,7 @@ const startTask = async (
     signal,
   );
 
-  cardRef.value!.pushLog({ message: '\n结束' });
+  cardRef.value!.pushLog({ message: '\nEnd' });
   running.value = false;
   releaseKeepAlive();
 
@@ -148,9 +148,9 @@ defineExpose({ startTask });
     <n-flex align="center" vertical size="large" style="flex: none">
       <n-progress type="circle" :percentage="percentage" />
       <n-text>
-        成功 {{ chapterFinished }}/{{ chapterTotal ?? '-' }}
+        Success {{ chapterFinished }}/{{ chapterTotal ?? '-' }}
         <br />
-        失败 {{ chapterError }}/{{ chapterTotal ?? '-' }}
+        Failed {{ chapterError }}/{{ chapterTotal ?? '-' }}
       </n-text>
     </n-flex>
   </c-task-card>

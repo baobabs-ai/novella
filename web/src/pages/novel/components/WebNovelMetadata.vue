@@ -102,16 +102,16 @@ const latestChapterCreateAt = computed(() => {
       :to="`/novel/${providerId}/${novelId}/${startReadChapter.chapter.chapterId}`"
     >
       <c-button
-        :label="startReadChapter.type === 'continue' ? '继续阅读' : '开始阅读'"
+        :label="startReadChapter.type === 'continue' ? 'Continue Reading' : 'Start Reading'"
       />
     </router-link>
-    <c-button v-else label="开始阅读" disabled />
+    <c-button v-else label="Start Reading" disabled />
 
     <router-link
       v-if="whoami.allowAdvancedFeatures"
       :to="`/novel-edit/${providerId}/${novelId}`"
     >
-      <c-button label="编辑" :icon="EditNoteOutlined" />
+      <c-button label="Edit" :icon="EditNoteOutlined" />
     </router-link>
 
     <favorite-button
@@ -120,7 +120,7 @@ const latestChapterCreateAt = computed(() => {
     />
 
     <router-link v-if="novel.wenkuId" :to="`/wenku/${novel.wenkuId}`">
-      <c-button label="文库" :icon="BookOutlined" />
+      <c-button label="Light Novel" :icon="BookOutlined" />
     </router-link>
   </n-flex>
 
@@ -134,10 +134,10 @@ const latestChapterCreateAt = computed(() => {
       <n-time :time="latestChapterCreateAt * 1000" type="date" />
       /
     </template>
-    <c-a :to="generateSearchUrl(novel.titleJp)">搜索标题</c-a>
+    <c-a :to="generateSearchUrl(novel.titleJp)">Search Title</c-a>
     <template v-if="novel.authors">
       /
-      <c-a :to="generateSearchUrl(novel.authors[0].name)">搜索作者</c-a>
+      <c-a :to="generateSearchUrl(novel.authors[0].name)">Search Author</c-a>
     </template>
   </n-p>
 

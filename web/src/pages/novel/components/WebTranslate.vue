@@ -152,9 +152,9 @@ const submitJob = (id: 'gpt' | 'sakura') => {
 </script>
 
 <template>
-  <n-text v-if="!whoami.isSignedIn">游客无法使用翻译功能，请先登录。</n-text>
+  <n-text v-if="!whoami.isSignedIn">Guests cannot use translation features, please log in first.</n-text>
   <n-text v-else-if="setting.enabledTranslator.length === 0">
-    没有翻译器启用。
+    No translators enabled.
   </n-text>
   <translate-options
     v-else
@@ -200,7 +200,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
 
     <n-button-group>
       <c-button
-        label="下载原文"
+        label="Download Original"
         :round="false"
         tag="a"
         :href="files.jp.url"
@@ -208,7 +208,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
         target="_blank"
       />
       <c-button
-        label="下载机翻"
+        label="Download Machine Translation"
         :round="false"
         tag="a"
         :href="files.zh.url"
@@ -216,7 +216,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
         target="_blank"
       />
       <c-button
-        label="导入日文至工作区"
+        label="Import Japanese to Workspace"
         :round="false"
         @action="importToWorkspace"
       />

@@ -24,7 +24,7 @@ export const translate = async (
       (message, detail) => taskCallback.log('　' + message, detail),
     );
   } catch (e: unknown) {
-    taskCallback.log(`发生错误，无法创建翻译器：${e}`);
+    taskCallback.log(`Error occurred, unable to create translator: ${e}`);
     return;
   }
 

@@ -21,9 +21,9 @@ store.loadArticle().then((result) => {
   <div class="layout-content">
     <c-result :result="articleResult" v-slot="{ value: article }">
       <n-h1 prefix="bar">{{ article.title }}</n-h1>
-      <n-text v-if="article.hidden" depth="3">[隐藏]</n-text>
+      <n-text v-if="article.hidden" depth="3">[hidden]</n-text>
       <n-p>
-        {{ article.updateAt === article.createAt ? '发布' : '更新' }}于
+        {{ article.updateAt === article.createAt ? 'Published' : 'Updated' }} on
         <n-time :time="article.updateAt * 1000" type="relative" />
         by {{ article.user.username }}
         <template
@@ -31,7 +31,7 @@ store.loadArticle().then((result) => {
         >
           /
           <c-a :to="`/forum-edit/${article.id}?category=${article.category}`">
-            编辑
+            Edit
           </c-a>
         </template>
       </n-p>

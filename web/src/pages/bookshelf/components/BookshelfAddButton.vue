@@ -24,12 +24,12 @@ const formRules: FormRules = {
   title: [
     {
       validator: (_rule: FormItemRule, value: string) => value.length > 0,
-      message: '收藏夹标题不能为空',
+      message: 'Collection title cannot be empty',
       trigger: 'input',
     },
     {
       validator: (_rule: FormItemRule, value: string) => value.length <= 20,
-      message: '收藏夹标题至多为20个字符',
+      message: 'Collection title cannot exceed 20 characters',
       trigger: 'input',
     },
   ],
@@ -47,16 +47,16 @@ const addFavorite = async () => {
     favoredRepository.createFavored(type, title).then(() => {
       showAddModal.value = false;
     }),
-    '收藏夹创建',
+    'Collection created',
     message,
   );
 };
 </script>
 
 <template>
-  <c-button label="新建" :icon="PlusOutlined" @action="showAddModal = true" />
+  <c-button label="Create" :icon="PlusOutlined" @action="showAddModal = true" />
 
-  <c-modal title="新建收藏夹" v-model:show="showAddModal">
+  <c-modal title="Create Collection" v-model:show="showAddModal">
     <n-form
       ref="formRef"
       :model="formValue"
@@ -64,21 +64,21 @@ const addFavorite = async () => {
       label-placement="left"
       label-width="auto"
     >
-      <n-form-item-row label="标题" path="title">
+      <n-form-item-row label="Title" path="title">
         <n-input
           v-model:value="formValue.title"
-          placeholder="收藏夹标题"
+          placeholder="Collection title"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row label="类型">
+      <n-form-item-row label="Type">
         <c-radio-group
           v-model:value="formValue.type"
           :options="[
-            { label: '网页小说', value: 'web' },
-            { label: '文库小说', value: 'wenku' },
-            { label: '本地小说', value: 'local' },
+            { label: 'Web Novels', value: 'web' },
+            { label: 'Light Novels', value: 'wenku' },
+            { label: 'Local Novels', value: 'local' },
           ]"
         />
       </n-form-item-row>
@@ -86,7 +86,7 @@ const addFavorite = async () => {
 
     <template #action>
       <c-button
-        label="确定"
+        label="Confirm"
         require-login
         type="primary"
         @action="addFavorite"

@@ -22,11 +22,11 @@ const getOptions = () => {
   if (id === 'all') {
     return [];
   } else if (id === 'default') {
-    return [{ label: '编辑信息', key: 'edit' }];
+    return [{ label: 'Edit Information', key: 'edit' }];
   } else {
     return [
-      { label: '编辑信息', key: 'edit' },
-      { label: '删除', key: 'delete' },
+      { label: 'Edit Information', key: 'edit' },
+      { label: 'Delete', key: 'delete' },
     ];
   }
 };
@@ -48,7 +48,7 @@ const formRules: FormRules = {
   title: [
     {
       validator: (_rule: FormItemRule, value: string) => value.length > 0,
-      message: '收藏夹标题不能为空',
+      message: 'Collection title cannot be empty',
       trigger: 'input',
     },
   ],
@@ -70,7 +70,7 @@ const updateFavored = async () => {
     favoredRepository.updateFavored(type, id, title).then(() => {
       showEditModal.value = false;
     }),
-    '收藏夹更新',
+    'Collection updated',
     message,
   );
 };
@@ -81,7 +81,7 @@ const deleteFavoredNovels = async () => {
       store.volumes.filter((it) => it.favoredId === id).map(({ id }) => id),
     );
     if (failed > 0) {
-      throw new Error(`清空收藏夹失败，${failed}本未删除`);
+      throw new Error(`Failed to clear collection, ${failed} novels not deleted`);
     }
   }
 };
@@ -92,7 +92,7 @@ const deleteFavored = () =>
     deleteFavoredNovels()
       .then(() => favoredRepository.deleteFavored(type, id))
       .then(() => (showDeleteModal.value = false)),
-    '收藏夹删除',
+    'Collection deleted',
     message,
   );
 </script>
@@ -115,7 +115,7 @@ const deleteFavored = () =>
     </n-flex>
   </router-link>
 
-  <c-modal v-model:show="showEditModal" title="编辑收藏夹">
+  <c-modal v-model:show="showEditModal" title="Edit Collection">
     <n-form
       ref="formRef"
       :model="formValue"
@@ -123,10 +123,10 @@ const deleteFavored = () =>
       label-placement="left"
       label-width="auto"
     >
-      <n-form-item-row label="标题" path="title">
+      <n-form-item-row label="Title" path="title">
         <n-input
           v-model:value="formValue.title"
-          placeholder="收藏夹标题"
+          placeholder="Collection Title"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
@@ -134,7 +134,7 @@ const deleteFavored = () =>
 
     <template #action>
       <c-button
-        label="确定"
+        label="Confirm"
         require-login
         type="primary"
         @action="updateFavored"
@@ -142,16 +142,16 @@ const deleteFavored = () =>
     </template>
   </c-modal>
 
-  <c-modal v-model:show="showDeleteModal" title="删除收藏夹">
-    确定删除收藏夹[{{ title }}]吗？
+  <c-modal v-model:show="showDeleteModal" title="Delete Collection">
+    Are you sure you want to delete collection [{{ title }}]?
     <n-text v-if="type === 'local'">
       <br />
-      注意，删除本地收藏夹的同时也会清空收藏夹内所有小说。
+      Note: Deleting the local collection will also clear all novels in the collection.
     </n-text>
 
     <template #action>
       <c-button
-        label="确定"
+        label="Confirm"
         require-login
         type="primary"
         @action="deleteFavored"

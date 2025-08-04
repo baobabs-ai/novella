@@ -48,17 +48,17 @@ const downloadVolumes = async () => {
     .map((it) => it.volumeId);
 
   if (volumeIds.length === 0) {
-    message.info('列表为空，没有文件需要下载');
+    message.info('List is empty, no files need to be downloaded');
     return;
   }
 
   const { success, failed } = await store.downloadVolumes(volumeIds);
-  message.info(`${success}本小说被打包，${failed}本失败`);
+  message.info(`${success} novels were packaged, ${failed} failed`);
 };
 </script>
 
 <template>
-  <section-header title="任务记录"></section-header>
+  <section-header title="Task Records"></section-header>
 
   <n-flex vertical>
     <c-action-wrapper title="状态">
@@ -71,13 +71,13 @@ const downloadVolumes = async () => {
     <c-action-wrapper title="操作" align="center">
       <n-button-group size="small">
         <c-button
-          label="重试未完成任务"
+          label="Retry Unfinished Tasks"
           :icon="RefreshOutlined"
           :round="false"
           @action="workspace.retryAllJobRecords()"
         />
         <c-button
-          label="下载本地小说"
+          label="Download Local Novels"
           :icon="FileDownloadOutlined"
           @click="downloadVolumes"
         />
@@ -95,7 +95,7 @@ const downloadVolumes = async () => {
 
   <n-empty
     v-if="records.length === 0"
-    description="没有任务"
+    description="No tasks"
     style="padding: 32px"
   />
   <n-list>

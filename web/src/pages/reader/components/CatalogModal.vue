@@ -79,7 +79,7 @@ watch(
         const getLocalToc = async (volumeId: string) => {
           const repo = await Locator.localVolumeRepository();
           const volume = await repo.getVolume(volumeId);
-          if (volume === undefined) throw Error('小说不存在');
+          if (volume === undefined) throw Error('Novel does not exist');
           return volume.toc.map(
             (it, index) =>
               <TocItem>{
@@ -94,7 +94,7 @@ watch(
         if (gnid.type === 'web') {
           tocResult.value = await getWebToc(gnid.providerId, gnid.novelId);
         } else if (gnid.type === 'wenku') {
-          throw '不支持文库';
+          throw 'Light novels not supported';
         } else {
           tocResult.value = await runCatching(getLocalToc(gnid.volumeId));
         }

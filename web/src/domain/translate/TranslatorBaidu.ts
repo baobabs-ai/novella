@@ -45,7 +45,7 @@ export class BaiduTranslator implements SegmentTranslator {
     } else if (RegexUtil.hasEnglishChars(query)) {
       from = 'en';
     }
-    const chunks = await this.api.translate(query, from, { signal });
+    const chunks = await this.api.translate(query, from, 'en', { signal });
 
     const lineParts: { paraIdx: number; dst: string }[] = [];
     Array.from(chunks).forEach((chunk) => {

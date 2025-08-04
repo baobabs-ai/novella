@@ -29,7 +29,7 @@ const clearHistory = () =>
     readHistoryRepository.clearReadHistoryWeb().then(() => {
       window.location.reload();
     }),
-    '清空',
+    'Clear',
     message,
   );
 
@@ -38,7 +38,7 @@ const deleteHistory = (providerId: string, novelId: string) =>
     readHistoryRepository.deleteReadHistoryWeb(providerId, novelId).then(() => {
       window.location.reload();
     }),
-    '删除',
+    'Delete',
     message,
   );
 </script>
@@ -49,8 +49,8 @@ const deleteHistory = (providerId: string, novelId: string) =>
 
     <n-flex style="margin-bottom: 24px">
       <c-button-confirm
-        hint="真的要清空记录吗？"
-        label="清空记录"
+        hint="Really want to clear records?"
+        label="Clear Records"
         :icon="DeleteOutlineOutlined"
         @action="clearHistory()"
       />
@@ -75,7 +75,7 @@ const deleteHistory = (providerId: string, novelId: string) =>
         <template #action="item">
           <c-button
             size="tiny"
-            label="删除"
+            label="Delete"
             style="margin-top: 2px"
             @action="deleteHistory(item.providerId, item.novelId)"
           />

@@ -52,33 +52,33 @@ export class SakuraTranslator implements SegmentTranslator {
 
   allowUpload = () => {
     if (this.segLength !== 500) {
-      this.log('分段长度不是500');
+      this.log('Segment length is not 500');
       return false;
     }
     if (this.prevSegLength !== 500) {
-      this.log('前文长度不是500');
+      this.log('Previous segment length is not 500');
       return false;
     }
 
     if (this.model === undefined) {
-      this.log('无法获取模型数据');
+      this.log('Unable to get model data');
       return false;
     }
 
     const metaCurrent = this.model.meta;
     const metaExpected = SakuraTranslator.allowModels[this.model.id]?.meta;
     if (metaExpected === undefined) {
-      this.log(`模型为${this.model.id}，禁止上传`);
+      this.log(`Model is ${this.model.id}, upload prohibited`);
       return false;
     }
 
     for (const key in metaExpected) {
       if (metaCurrent[key] !== metaExpected[key]) {
-        this.log(`模型检查未通过，不要尝试欺骗模型检查`);
+        this.log(`Model check failed, do not try to deceive model check`);
         return false;
       }
     }
-    this.log(`模型为${this.model.id}，允许上传`);
+    this.log(`Model is ${this.model.id}, upload allowed`);
     return true;
   };
 
@@ -198,26 +198,26 @@ export class SakuraTranslator implements SegmentTranslator {
 
     if (this.version === '1.0') {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，不擅自添加原文中没有的代词。',
+        'You are a light novel translation model that can fluently and smoothly translate Japanese into English in the style of Japanese light novels, and correctly use personal pronouns in context without arbitrarily adding pronouns that are not in the original text.',
       );
       if (prevText !== '') {
         assistant(prevText);
       }
 
       if (Object.keys(glossary).length === 0) {
-        user(`将下面的日文文本翻译成中文：${text}`);
+        user(`Translate the following Japanese text into English: ${text}`);
       } else {
         const glossaryHint = Object.entries(glossary)
           .map(([wordJp, wordZh]) => `${wordJp}->${wordZh}`)
           .join('\n');
         user(
-          `根据以下术语表（可以为空）：\n${glossaryHint}\n` +
-            `将下面的日文文本根据对应关系和备注翻译成中文：${text}`,
+          `Based on the following glossary (can be empty):\n${glossaryHint}\n` +
+            `Translate the following Japanese text into English according to the corresponding relationships and notes: ${text}`,
         );
       }
     } else if (this.version === '0.10') {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地使用给定的术语表以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，注意不要混淆使役态和被动态的主语和宾语，不要擅自添加原文中没有的代词，也不要擅自增加或减少换行。',
+        'You are a light novel translation model that can fluently and smoothly use the given glossary to translate Japanese into English in the style of Japanese light novels, and correctly use personal pronouns in context, paying attention not to confuse the subject and object of causative and passive forms, do not arbitrarily add pronouns that are not in the original text, and do not arbitrarily add or reduce line breaks.',
       );
       if (prevText !== '') {
         assistant(prevText);
@@ -228,17 +228,17 @@ export class SakuraTranslator implements SegmentTranslator {
         .join('\n');
 
       user(
-        `根据以下术语表（可以为空）：\n${glossaryHint}\n\n将下面的日文文本根据上述术语表的对应关系和备注翻译成中文：${text}`,
+        `Based on the following glossary (can be empty):\n${glossaryHint}\n\nTranslate the following Japanese text into English according to the corresponding relationships and notes in the above glossary: ${text}`,
       );
     } else {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，不擅自添加原文中没有的代词。',
+        'You are a light novel translation model that can fluently and smoothly translate Japanese into English in the style of Japanese light novels, and correctly use personal pronouns in context without arbitrarily adding pronouns that are not in the original text.',
       );
       if (prevText !== '') {
         assistant(prevText);
       }
 
-      // 替换术语表词汇
+      // Replace glossary vocabulary
       for (const wordJp of Object.keys(glossary).sort(
         (a, b) => b.length - a.length,
       )) {
@@ -246,7 +246,7 @@ export class SakuraTranslator implements SegmentTranslator {
         text = text.replaceAll(wordJp, wordZh);
       }
 
-      user(`将下面的日文文本翻译成中文：${text}`);
+      user(`Translate the following Japanese text into English: ${text}`);
     }
 
     const maxNewToken = Math.max(Math.ceil(text.length * 1.7), 100);

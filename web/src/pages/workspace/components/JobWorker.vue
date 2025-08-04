@@ -161,13 +161,13 @@ const testWorker = async () => {
           `原文：${lineJp}`,
           `译文：${lineZh}`,
           `模型：${translator.sakuraModel()} ${
-            translator.allowUpload() ? '允许上传' : '禁止上传'
+            translator.allowUpload() ? 'Upload Allowed' : 'Upload Prohibited'
           }`,
         ].join('\n'),
       );
     }
   } catch (e: unknown) {
-    message.error(`翻译器错误：${e}`);
+    message.error(`Translator error: ${e}`);
   }
 };
 
@@ -203,7 +203,7 @@ const showEditWorkerModal = ref(false);
       <n-flex :size="6" :wrap="false">
         <c-button
           v-if="running"
-          label="停止"
+          label="Stop"
           :icon="StopOutlined"
           size="tiny"
           secondary
@@ -211,7 +211,7 @@ const showEditWorkerModal = ref(false);
         />
         <c-button
           v-else
-          label="启动"
+          label="Start"
           :icon="PlayArrowOutlined"
           size="tiny"
           secondary
@@ -219,32 +219,32 @@ const showEditWorkerModal = ref(false);
         />
 
         <c-icon-button
-          tooltip="测试"
+          tooltip="Test"
           :icon="FlashOnOutlined"
           @action="testWorker"
         />
 
         <c-icon-button
-          tooltip="设置"
+          tooltip="Settings"
           :icon="SettingsOutlined"
           @action="showEditWorkerModal = !showEditWorkerModal"
         />
 
         <c-icon-button
           v-if="enableAutoMode"
-          tooltip="自动翻译下个任务：已启动"
+          tooltip="Auto-translate next task: Started"
           :icon="FontDownloadOutlined"
           @action="enableAutoMode = false"
         />
         <c-icon-button
           v-else
-          tooltip="自动翻译下个任务：已关闭"
+          tooltip="Auto-translate next task: Stopped"
           :icon="FontDownloadOffOutlined"
           @action="enableAutoMode = true"
         />
 
         <c-icon-button
-          tooltip="删除"
+          tooltip="Delete"
           :icon="DeleteOutlineOutlined"
           type="error"
           @action="deleteWorker"

@@ -77,7 +77,7 @@ const formRules: FormRules = {
     {
       validator: (_rule: FormItemRule, value: string) =>
         !RegexUtil.hasKanaChars(value),
-      message: '不要使用日文当作中文标题，没有公认的标题可以尝试自行翻译',
+      message: 'Do not use Japanese as English title, if there is no recognized title, try translating it yourself',
       trigger: 'input',
     },
   ],
@@ -85,7 +85,7 @@ const formRules: FormRules = {
     {
       validator: (_rule: FormItemRule, value: string) =>
         value !== '成人向' || whoami.value.allowNsfw,
-      message: '你太年轻了，无法创建成人向页面',
+      message: 'You are too young to create an adult page',
       trigger: 'input',
     },
   ],
@@ -129,13 +129,13 @@ store?.loadNovel()?.then((result) => {
     amazonUrl.value = result.value.title.replace(/[?？。!！]$/, '');
     allowSubmit.value = true;
   } else {
-    message.error('载入失败');
+    message.error('Failed to load');
   }
 });
 
 const submit = async () => {
   if (!allowSubmit.value) {
-    message.warning('文章未载入，无法提交');
+    message.warning('Article not loaded, cannot submit');
     return;
   }
 
@@ -168,7 +168,7 @@ const submit = async () => {
       Locator.wenkuNovelRepository.createNovel(body).then((id) => {
         router.push({ path: `/wenku/${id}` });
       }),
-      '新建文库',
+      'Create Light Novel',
       message,
     );
   } else {
@@ -176,7 +176,7 @@ const submit = async () => {
       store.updateNovel(body).then(() => {
         router.push({ path: `/wenku/${novelId}` });
       }),
-      '编辑文库',
+      'Edit Light Novel',
       message,
     );
   }
@@ -263,7 +263,7 @@ const findSimilarNovels = async () => {
   if (result.ok) {
     similarNovels.value = result.value.items;
   } else {
-    message.error('搜索相似小说失败:' + result.error.message);
+    message.error('Failed to search for similar novels:' + result.error.message);
   }
 };
 const moveToPrevStep = () => {
@@ -294,8 +294,8 @@ const deleteVolume = (asin: string) => {
 
 const markAsDuplicate = () => {
   formValue.value = {
-    title: '重复，待删除',
-    titleZh: '重复，待删除',
+    title: 'Duplicate, pending deletion',
+    titleZh: 'Duplicate, pending deletion',
     cover: '',
     authors: [],
     artists: [],
@@ -334,24 +334,24 @@ const levelOptions = [
 
 <template>
   <div class="layout-content">
-    <n-h1>{{ novelId === undefined ? '新建' : '编辑' }}文库小说</n-h1>
+    <n-h1>{{ novelId === undefined ? 'Create' : 'Edit' }} Light Novel</n-h1>
 
     <n-card embedded :bordered="false" style="margin-bottom: 20px">
       <n-text type="error">
-        <b>创建文库小说注意事项：</b>
+        <b>Notes for creating light novels:</b>
       </n-text>
       <n-ul>
         <n-li>
-          请先安装机翻站扩展以启用智能导入功能，另外自动机翻简介功能要求你能使用有道机翻。
+          Please install the machine translation extension to enable the intelligent import function, and the automatic machine translation introduction function requires you to use Youdao translation.
         </n-li>
         <n-li>
-          文库小说只允许已经发行单行本的日语小说，原则上以亚马逊上可以买到为准，系列小说不要分开导入。
+          Light novels only allow Japanese novels that have been published as single volumes, in principle based on what can be purchased on Amazon, series novels should not be imported separately.
         </n-li>
         <n-li>
-          在导入栏输入亚马逊系列/单本链接直接导入，或是输入小说日文主标题搜索导入。
+          Enter Amazon series/single volume links in the import field for direct import, or enter the Japanese main title of the novel to search and import.
         </n-li>
         <n-li>
-          导入R18书需要注册机翻站满一个月、使用日本IP，并在亚马逊上点过“已满18岁”。
+          Import R18 books require registration on the machine translation site for one month, use a Japanese IP, and have clicked "I am 18 years old" on Amazon.
         </n-li>
       </n-ul>
     </n-card>
@@ -373,7 +373,7 @@ const levelOptions = [
             :input-props="{ spellcheck: false }"
           />
           <c-button
-            label="导入"
+            label="Import"
             :round="false"
             type="primary"
             @action="populateNovelFromAmazon(amazonUrl, false)"
@@ -381,7 +381,7 @@ const levelOptions = [
         </n-input-group>
         <n-flex>
           <c-button
-            label="在亚马逊搜索"
+            label="Search on Amazon"
             secondary
             tag="a"
             :href="`https://www.amazon.co.jp/s?k=${encodeURIComponent(
@@ -391,14 +391,14 @@ const levelOptions = [
           />
           <c-button
             secondary
-            label="刷新分卷"
+            label="Refresh Volumes"
             @action="populateNovelFromAmazon('', true)"
           />
           <c-button
             v-if="whoami.isMaintainer"
             type="error"
             secondary
-            label="标记重复"
+            label="Mark as Duplicate"
             @action="markAsDuplicate"
           />
         </n-flex>
@@ -412,54 +412,54 @@ const levelOptions = [
       :label-placement="isWideScreen ? 'left' : 'top'"
       label-width="auto"
     >
-      <n-form-item-row path="title" label="日文标题">
+      <n-form-item-row path="title" label="Japanese Title">
         <n-input
           v-model:value="formValue.title"
-          placeholder="请输入日文标题"
+          placeholder="Please enter Japanese title"
           maxlength="80"
           show-count
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="titleZh" label="中文标题">
+      <n-form-item-row path="titleZh" label="English Title">
         <n-input
           v-model:value="formValue.titleZh"
-          placeholder="请输入中文标题"
+          placeholder="Please enter English title"
           maxlength="80"
           show-count
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="cover" label="封面链接">
+      <n-form-item-row path="cover" label="Cover Link">
         <n-input
           v-model:value="formValue.cover"
-          placeholder="请输入封面链接"
+          placeholder="Please enter cover link"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="authors" label="作者">
+      <n-form-item-row path="authors" label="Author">
         <n-dynamic-tags v-model:value="formValue.authors" />
       </n-form-item-row>
 
-      <n-form-item-row path="artists" label="画师">
+      <n-form-item-row path="artists" label="Artist">
         <n-dynamic-tags v-model:value="formValue.artists" />
       </n-form-item-row>
 
-      <n-form-item-row path="level" label="分级">
+      <n-form-item-row path="level" label="Level">
         <c-radio-group
           v-model:value="formValue.level"
           :options="levelOptions"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="content" label="简介">
+      <n-form-item-row path="content" label="Introduction">
         <n-input
           v-model:value="formValue.introduction"
           type="textarea"
-          placeholder="请输入小说简介"
+          placeholder="Please enter novel introduction"
           :autosize="{
             minRows: 8,
             maxRows: 24,
@@ -470,17 +470,17 @@ const levelOptions = [
         />
       </n-form-item-row>
 
-      <n-form-item-row label="标签">
+      <n-form-item-row label="Tags">
         <n-list bordered style="width: 100%">
           <n-list-item>
             <c-button
               v-if="presetKeywords.groups.length > 0"
-              label="用前必读"
+              label="Use Before Reading"
               @action="showKeywordsModal = true"
               text
               type="error"
             />
-            <n-p v-else>暂不支持标签。</n-p>
+            <n-p v-else>Tags are not supported for now.</n-p>
           </n-list-item>
           <n-list-item
             v-for="group of presetKeywords.groups"
@@ -507,7 +507,7 @@ const levelOptions = [
         </n-list>
       </n-form-item-row>
 
-      <n-form-item-row label="分卷" v-if="formValue.volumes.length > 0">
+      <n-form-item-row label="Volumes" v-if="formValue.volumes.length > 0">
         <n-list style="width: 100%; font-size: 12px">
           <vue-draggable
             v-model="formValue.volumes"
@@ -544,19 +544,19 @@ const levelOptions = [
                 <template #header-extra>
                   <n-flex :size="6" :wrap="false">
                     <c-icon-button
-                      tooltip="置顶"
+                      tooltip="Top"
                       :icon="KeyboardDoubleArrowUpOutlined"
                       @action="topVolume(volume.asin)"
                     />
 
                     <c-icon-button
-                      tooltip="置底"
+                      tooltip="Bottom"
                       :icon="KeyboardDoubleArrowDownOutlined"
                       @action="bottomVolume(volume.asin)"
                     />
 
                     <c-icon-button
-                      tooltip="删除"
+                      tooltip="Delete"
                       :icon="DeleteOutlineOutlined"
                       type="error"
                       @action="deleteVolume(volume.asin)"
@@ -567,25 +567,25 @@ const levelOptions = [
                 <template #description>
                   <n-flex align="center" :size="0" :wrap="false">
                     <n-text style="word-break: keep-all; font-size: 12px">
-                      标题：
+                      Title：
                     </n-text>
                     <n-input
                       v-model:value="volume.title"
-                      placeholder="标题"
+                      placeholder="Title"
                       :input-props="{ spellcheck: false }"
                       size="small"
                       style="font-size: 12px"
                     />
                   </n-flex>
                   <n-text style="font-size: 12px">
-                    缩略：{{ volume.cover }}
+                    Thumbnail：{{ volume.cover }}
                     <br />
-                    高清：{{ volume.coverHires }}
+                    High Resolution：{{ volume.coverHires }}
                     <br />
-                    出版：
-                    {{ volume.publisher ?? '未知出版商' }}
+                    Publisher：
+                    {{ volume.publisher ?? 'Unknown Publisher' }}
                     /
-                    {{ volume.imprint ?? '未知文库' }}
+                    {{ volume.imprint ?? 'Unknown Publisher' }}
                     /
                     <n-time
                       v-if="volume.publishAt"
@@ -605,7 +605,7 @@ const levelOptions = [
 
     <c-button
       v-if="novelId"
-      label="提交"
+      label="Submit"
       :icon="UploadOutlined"
       require-login
       size="large"
@@ -620,12 +620,12 @@ const levelOptions = [
       vertical
       style="margin-left: 8px"
     >
-      <n-step title="检查小说是否已经存在">
+      <n-step title="Check if the novel already exists">
         <p>
-          创建文库页面前，请先确定你要创建的小说页面不存在，不要重复创建。你可以通过下面的搜索按钮搜索章节标题，注意自动搜索不总是能正确提取出关键词，如果关键词不正确，请手动搜索日文标题。
+          Before creating a light novel page, please first confirm that the novel page you want to create does not exist, do not create duplicates. You can search for chapter titles using the search button below, note that automatic search does not always correctly extract keywords, if the keywords are incorrect, please manually search for the Japanese title.
         </p>
         <p>
-          自动搜索关键词：
+          Automatic search keywords：
           <b>
             {{
               title.split(
@@ -636,7 +636,7 @@ const levelOptions = [
           </b>
         </p>
         <p v-if="similarNovels !== null">
-          <template v-if="similarNovels.length === 0">没有相似的小说</template>
+          <template v-if="similarNovels.length === 0">No similar novels</template>
           <n-grid v-else :x-gap="12" :y-gap="12" cols="3 600:6">
             <n-grid-item v-for="item in similarNovels" :key="item.id">
               <router-link :to="`/wenku/${item.id}`">
@@ -650,51 +650,51 @@ const levelOptions = [
         </p>
         <n-button-group v-if="submitCurrentStep === 1">
           <c-button
-            label="我确定小说不存在"
+            label="I confirm the novel does not exist"
             type="warning"
             @click="moveToNextStep"
           />
-          <c-button label="自动搜索相似小说" @click="findSimilarNovels" />
+          <c-button label="Auto-search similar novels" @click="findSimilarNovels" />
         </n-button-group>
       </n-step>
 
-      <n-step title="检查小说文件是否可以上传">
+      <n-step title="Check if novel files can be uploaded">
         <p>
-          创建文库页面前，请先确认你有可以上传的小说文件。不要创建文库页再去寻找资源，最后发现资源用不了或者找不到，留下一个空的文库页。尤其禁止创建空页面来求书，会被封号。
+          Before creating a light novel page, please first confirm that you have novel files that can be uploaded. Do not create a light novel page and then look for resources, only to find that the resources cannot be used or cannot be found, leaving an empty light novel page. It is especially forbidden to create empty pages to request books, which will result in account suspension.
         </p>
-        <p>PDF、或者内容只有图片的EPUB是无法上传的。</p>
+        <p>PDF, or EPUB files that only contain images cannot be uploaded.</p>
 
         <n-button-group v-if="submitCurrentStep === 2">
           <c-button
-            label="我确定我有可以上传的文件"
+            label="I confirm I have files that can be uploaded"
             type="warning"
             @click="moveToNextStep"
           />
-          <c-button label="上一步" @click="moveToPrevStep" />
+          <c-button label="Previous step" @click="moveToPrevStep" />
         </n-button-group>
       </n-step>
 
-      <n-step title="创建文库小说">
+      <n-step title="Create Light Novel">
         <n-button-group v-if="submitCurrentStep === 3" style="margin-top: 16px">
           <c-button
-            label="提交"
+            label="Submit"
             :icon="UploadOutlined"
             require-login
             type="primary"
             @action="submit"
           />
-          <c-button label="上一步" @click="moveToPrevStep" />
+          <c-button label="Previous step" @click="moveToPrevStep" />
         </n-button-group>
       </n-step>
     </n-steps>
   </div>
 
-  <c-modal title="使用说明" v-model:show="showKeywordsModal">
+  <c-modal title="Instructions" v-model:show="showKeywordsModal">
     <n-p>
-      标签的意义在于辅助搜索。一个标签是否合适，要看标签相关情节的比例。仅仅是存在相关情节，不足以作为添加标签的依据。在实际操作中，可以思考搜索该标签的用户想不想看到这本书。
+      The meaning of tags is to assist in searching. Whether a tag is appropriate depends on the proportion of related plot lines. Simply existing related plot lines are not sufficient grounds for adding tags. In actual operation, you can think about whether users searching for this tag want to see this book.
     </n-p>
     <n-p>
-      下面是一些标签的具体解释。注意，同一个标签在一般向和R18下可能存在区别。
+      Below are some specific explanations of tags. Note that the same tag may have different meanings in general and R18.
     </n-p>
     <n-divider />
     <n-p v-for="row of presetKeywords.explanations" :key="row.word">

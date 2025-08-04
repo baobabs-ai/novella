@@ -84,7 +84,7 @@ const onGlobalClick = (event: MouseEvent) => {
         <side-button
           quaternary
           :disabled="!chapter.prevId"
-          text="上一章"
+          text="Previous Chapter"
           :icon="ArrowBackIosOutlined"
           @click="emit('nav', chapter.prevId!)"
           style="width: 100%"
@@ -93,7 +93,7 @@ const onGlobalClick = (event: MouseEvent) => {
       <router-link v-if="novelUrl" :to="novelUrl" style="flex: 1">
         <side-button
           quaternary
-          text="详情"
+          text="Details"
           :icon="LibraryBooksOutlined"
           style="width: 100%"
         />
@@ -101,7 +101,7 @@ const onGlobalClick = (event: MouseEvent) => {
       <div style="flex: 1 1 0px">
         <side-button
           quaternary
-          text="目录"
+          text="Catalog"
           :icon="FormatListBulletedOutlined"
           @click="emit('requireCatalogModal')"
           style="width: 100%"
@@ -110,7 +110,7 @@ const onGlobalClick = (event: MouseEvent) => {
       <div style="flex: 1 1 0px">
         <side-button
           quaternary
-          text="设置"
+          text="Settings"
           :icon="TuneOutlined"
           @click="emit('requireSettingModal')"
           style="width: 100%"
@@ -120,7 +120,7 @@ const onGlobalClick = (event: MouseEvent) => {
         <side-button
           quaternary
           :disabled="!chapter.nextId"
-          text="下一章"
+          text="Next Chapter"
           :icon="ArrowForwardIosOutlined"
           @click="emit('nav', chapter.nextId!)"
           style="width: 100%"

@@ -16,7 +16,7 @@ const isWideScreen = useIsWideScreen(600);
 
 const { setting } = Locator.settingRepository();
 
-// 翻译设置
+// Translation settings
 const translateLevel = ref<'normal' | 'expire' | 'all' | 'sync'>(
   probs.gnid.type === 'local' ? 'expire' : 'normal',
 );
@@ -40,47 +40,47 @@ const showDownloadModal = ref(false);
 
 <template>
   <n-flex vertical>
-    <c-action-wrapper title="选项">
+    <c-action-wrapper title="Options">
       <n-flex size="small">
         <n-tooltip trigger="hover" style="max-width: 200px">
           <template #trigger>
             <n-flex :size="0" :wrap="false">
               <tag-button
-                label="常规"
+                label="Normal"
                 :checked="translateLevel === 'normal'"
                 @update:checked="translateLevel = 'normal'"
               />
               <tag-button
-                label="过期"
+                label="Expired"
                 :checked="translateLevel === 'expire'"
                 @update:checked="translateLevel = 'expire'"
               />
               <tag-button
-                label="重翻"
+                label="Re-translate"
                 type="warning"
                 :checked="translateLevel === 'all'"
                 @update:checked="translateLevel = 'all'"
               />
               <tag-button
                 v-if="gnid.type === 'web'"
-                label="源站同步"
+                label="Source site sync"
                 type="warning"
                 :checked="translateLevel === 'sync'"
                 @update:checked="translateLevel = 'sync'"
               />
             </n-flex>
           </template>
-          常规：只翻译未翻译的章节<br />
-          过期：翻译术语表过期的章节<br />
-          重翻：重翻全部章节<br />
+          Normal: Only translate untranslated chapters<br />
+          Expired: Translate chapters with expired glossaries<br />
+          Re-translate: Re-translate all chapters<br />
           <template v-if="gnid.type === 'web'">
-            源站同步：用于原作者修改了原文的情况导致不一致的情况，可能清空现有翻译，慎用！!
+            Source site sync: Used when the original author modifies the original text causing inconsistencies, may clear existing translations, use with caution!!
           </template>
         </n-tooltip>
 
         <tag-button
           v-if="gnid.type === 'web'"
-          label="重翻目录"
+          label="Re-translate directory"
           v-model:checked="forceMetadata"
         />
 
@@ -89,19 +89,19 @@ const showDownloadModal = ref(false);
           type="warning"
           style="font-size: 12px; flex-basis: 100%"
         >
-          <b> * 请确保你知道自己在干啥，不要随便使用危险功能 </b>
+          <b> * Please ensure you know what you are doing, do not use dangerous functions casually </b>
         </n-text>
       </n-flex>
     </c-action-wrapper>
 
     <c-action-wrapper
       v-if="gnid.type === 'web' || gnid.type === 'local'"
-      title="范围"
+      title="Range"
     >
       <n-flex style="text-align: center">
         <div>
           <n-input-group>
-            <n-input-group-label size="small">从</n-input-group-label>
+            <n-input-group-label size="small">From</n-input-group-label>
             <n-input-number
               size="small"
               v-model:value="startIndex"
@@ -110,7 +110,7 @@ const showDownloadModal = ref(false);
               :min="0"
               style="width: 60px"
             />
-            <n-input-group-label size="small">到</n-input-group-label>
+            <n-input-group-label size="small">To</n-input-group-label>
             <n-input-number
               size="small"
               v-model:value="endIndex"
@@ -122,7 +122,7 @@ const showDownloadModal = ref(false);
         </div>
         <div>
           <n-input-group>
-            <n-input-group-label size="small">均分</n-input-group-label>
+            <n-input-group-label size="small">Even distribution</n-input-group-label>
             <n-input-number
               size="small"
               v-model:value="taskNumber"
@@ -131,7 +131,7 @@ const showDownloadModal = ref(false);
               :max="gnid.type === 'local' ? 65536 : 10"
               style="width: 40px"
             />
-            <n-input-group-label size="small">个任务</n-input-group-label>
+            <n-input-group-label size="small">tasks</n-input-group-label>
           </n-input-group>
         </div>
 
@@ -141,15 +141,15 @@ const showDownloadModal = ref(false);
               <n-icon depth="4" :component="InfoOutlined" />
             </n-button>
           </template>
-          章节序号看下面目录方括号里的数字。“从0到10”表示从第0章到第9章，不包含第10章。均分任务只对排队生效，最大为10。
+          Chapter numbers can be found in the numbers in square brackets in the catalog below. "From 0 to 10" means from chapter 0 to chapter 9, not including chapter 10. Even distribution of tasks only applies to queuing, maximum is 10.
         </n-tooltip>
       </n-flex>
     </c-action-wrapper>
 
-    <c-action-wrapper v-if="gnid.type !== 'local'" title="操作">
+    <c-action-wrapper v-if="gnid.type !== 'local'" title="Operations">
       <n-button-group size="small">
         <c-button
-          label="下载设置"
+          label="Download Settings"
           :round="false"
           @action="showDownloadModal = true"
         />
@@ -157,16 +157,16 @@ const showDownloadModal = ref(false);
       </n-button-group>
     </c-action-wrapper>
 
-    <c-modal title="下载设置" v-model:show="showDownloadModal">
+    <c-modal title="Download Settings" v-model:show="showDownloadModal">
       <n-flex vertical size="large">
-        <c-action-wrapper title="语言">
+        <c-action-wrapper title="Language">
           <c-radio-group
             v-model:value="setting.downloadFormat.mode"
             :options="Setting.downloadModeOptions"
           />
         </c-action-wrapper>
 
-        <c-action-wrapper title="翻译">
+        <c-action-wrapper title="Translation">
           <n-flex>
             <c-radio-group
               v-model:value="setting.downloadFormat.translationsMode"
@@ -180,7 +180,7 @@ const showDownloadModal = ref(false);
           </n-flex>
         </c-action-wrapper>
 
-        <c-action-wrapper v-if="gnid.type === 'web'" title="文件">
+        <c-action-wrapper v-if="gnid.type === 'web'" title="File">
           <c-radio-group
             v-model:value="setting.downloadFormat.type"
             :options="Setting.downloadTypeOptions"
@@ -189,7 +189,7 @@ const showDownloadModal = ref(false);
 
         <c-action-wrapper
           v-if="gnid.type === 'web'"
-          title="中文文件名"
+          title="English Filename"
           align="center"
         >
           <n-switch
@@ -202,7 +202,7 @@ const showDownloadModal = ref(false);
         </c-action-wrapper>
 
         <n-text depth="3" style="font-size: 12px">
-          # 某些EPUB阅读器无法正确显示日文段落的浅色字体
+          # Some EPUB readers cannot correctly display the light font of Japanese paragraphs
         </n-text>
       </n-flex>
     </c-modal>

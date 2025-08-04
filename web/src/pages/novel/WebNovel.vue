@@ -16,8 +16,8 @@ const { novelResult } = storeToRefs(store);
 store.loadNovel().then((result) => {
   if (result && !result.ok) {
     const message = result.error.message;
-    if (message.includes('小说ID不合适，应当使用：')) {
-      const targetNovelPath = message.split('小说ID不合适，应当使用：')[1];
+    if (message.includes('Novel ID is not suitable, should use: ')) {
+      const targetNovelPath = message.split('Novel ID is not suitable, should use: ')[1];
       router.push({ path: `/novel${targetNovelPath}` });
       return;
     }

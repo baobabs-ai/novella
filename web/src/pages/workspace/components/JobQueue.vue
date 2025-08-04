@@ -51,19 +51,19 @@ const percentage = computed(() => {
     <template #header-extra>
       <n-flex :size="6" :wrap="false">
         <c-icon-button
-          tooltip="置顶"
+          tooltip="Top"
           :icon="KeyboardDoubleArrowUpOutlined"
           @action="emit('topJob')"
         />
 
         <c-icon-button
-          tooltip="置底"
+          tooltip="Bottom"
           :icon="KeyboardDoubleArrowDownOutlined"
           @action="emit('bottomJob')"
         />
 
         <c-icon-button
-          tooltip="删除"
+          tooltip="Delete"
           :icon="DeleteOutlineOutlined"
           type="error"
           @action="emit('deleteJob')"

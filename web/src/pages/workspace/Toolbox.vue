@@ -11,7 +11,7 @@ const files = shallowRef<ParsedFile[]>([]);
 
 const loadFile = async (file: File) => {
   if (files.value.find((it) => it.name === file.name) !== undefined) {
-    message.warning('文件已经载入');
+    message.warning('File already loaded');
     return;
   }
   try {
@@ -38,10 +38,10 @@ const loadLocalFile = (volumeId: string) =>
   Locator.localVolumeRepository()
     .then((repo) => repo.getFile(volumeId))
     .then((file) => {
-      if (file === undefined) throw '小说不存在';
+      if (file === undefined) throw 'Novel does not exist';
       return loadFile(file.file);
     })
-    .catch((error) => message.error(`文件载入失败：${error}`));
+    .catch((error) => message.error(`File loading failed: ${error}`));
 
 const customRequest = ({
   file,
@@ -52,7 +52,7 @@ const customRequest = ({
   loadFile(file.file)
     .then(onFinish)
     .catch((err) => {
-      message.error('文件载入失败:' + err);
+      message.error('File loading failed:' + err);
       onError();
     });
 };
@@ -62,7 +62,7 @@ const showListModal = ref(false);
 
 <template>
   <div class="layout-content">
-    <n-h1>小说工具箱</n-h1>
+    <n-h1>Novel Toolbox</n-h1>
 
     <n-flex>
       <div>
@@ -73,17 +73,17 @@ const showListModal = ref(false);
           directory-dnd
           :custom-request="customRequest"
         >
-          <c-button label="加载文件" :icon="PlusOutlined" />
+          <c-button label="Load File" :icon="PlusOutlined" />
         </n-upload>
       </div>
 
       <c-button
-        label="本地书架"
+        label="Local Shelf"
         :icon="PlusOutlined"
         @action="showListModal = true"
       />
       <c-button
-        label="清空"
+        label="Clear"
         :icon="DeleteOutlineOutlined"
         @action="clearFile"
       />
@@ -96,16 +96,16 @@ const showListModal = ref(false);
     </n-flex>
 
     <n-tabs type="segment" animated style="margin-top: 48px">
-      <n-tab-pane name="0" tab="术语表">
+      <n-tab-pane name="0" tab="Glossary">
         <toolbox-item-glossary :files="files" />
       </n-tab-pane>
-      <n-tab-pane name="1" tab="EPUB：压缩图片">
+      <n-tab-pane name="1" tab="EPUB: Compress Images">
         <toolbox-item-compress-image :files="files" />
       </n-tab-pane>
-      <n-tab-pane name="2" tab="TXT：修复OCR换行">
+      <n-tab-pane name="2" tab="TXT: Fix OCR Line Breaks">
         <toolbox-item-fix-ocr :files="files" />
       </n-tab-pane>
-      <n-tab-pane name="3" tab="EPUB：转换成TXT">
+      <n-tab-pane name="3" tab="EPUB: Convert to TXT">
         <toolbox-item-convert v-model:files="files" />
       </n-tab-pane>
     </n-tabs>

@@ -53,7 +53,7 @@ store.loadNovel().then((result) => {
 
 const submit = async () => {
   if (!allowSubmit.value) {
-    message.warning('小说未载入，无法提交');
+    message.warning('Novel not loaded, cannot submit');
     return;
   }
 
@@ -71,7 +71,7 @@ const submit = async () => {
       .then(() => {
         router.push({ path: `/novel/${providerId}/${novelId}` });
       }),
-    '编辑',
+    'Edit',
     message,
   );
 };
@@ -79,7 +79,7 @@ const submit = async () => {
 
 <template>
   <div class="layout-content">
-    <n-h1>编辑网络小说</n-h1>
+    <n-h1>Edit Web Novel</n-h1>
 
     <n-form
       ref="formRef"
@@ -87,12 +87,12 @@ const submit = async () => {
       :label-placement="isWideScreen ? 'left' : 'top'"
       label-width="auto"
     >
-      <n-form-item path="wenkuId" label="文库链接">
+      <n-form-item path="wenkuId" label="Light Novel Link">
         <n-input-group>
           <n-input-group-label>wenku/</n-input-group-label>
           <n-input
             v-model:value="formValue.wenkuId"
-            placeholder="文库版ID"
+            placeholder="Light Novel ID"
             :input-props="{ spellcheck: false }"
           />
         </n-input-group>
@@ -101,7 +101,7 @@ const submit = async () => {
       <n-form-item label="日文标题">
         {{ formValue.titleJp }}
       </n-form-item>
-      <n-form-item path="title" label="中文标题">
+      <n-form-item path="title" label="English Title">
         <n-input
           v-model:value="formValue.title"
           :placeholder="formValue.titleJp"
@@ -112,7 +112,7 @@ const submit = async () => {
       <n-form-item label="日文简介">
         {{ formValue.introductionJp }}
       </n-form-item>
-      <n-form-item path="introduction" label="中文简介">
+      <n-form-item path="introduction" label="English Introduction">
         <n-input
           v-model:value="formValue.introduction"
           :placeholder="formValue.introductionJp"
@@ -126,7 +126,7 @@ const submit = async () => {
     <n-h2 prefix="bar">目录</n-h2>
     <n-p>
       <n-text type="error">
-        注意，手动编辑目录可能会被其他人覆盖。如果你不满意目录的翻译，可以先用翻译器重翻试试。
+        Note: Manual editing of the catalog may be overwritten by others. If you are not satisfied with the catalog translation, you can try using the translator to retranslate first.
       </n-text>
     </n-p>
     <n-table :bordered="false" :bottom-bordered="false" style="width: 100%">
