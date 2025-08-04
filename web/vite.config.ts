@@ -28,7 +28,7 @@ const defineServerOptions = (): ServerOptions => {
             req.url.includes('/translate-v2/')
           ) {
             if (req.url.includes('/chapter/')) {
-              console.log('检测到小说章节翻译请求，已拦截');
+              console.log('Detected novel chapter translation request, intercepted');
               return false;
             }
           }

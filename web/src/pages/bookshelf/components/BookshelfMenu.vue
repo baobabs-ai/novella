@@ -17,7 +17,7 @@ onMounted(async () => {
     try {
       await favoredRepository.loadRemoteFavoreds();
     } catch (e) {
-      message.error(`获取收藏列表失败：${e}`);
+      message.error(`Failed to get favorites list: ${e}`);
     }
   }
 });

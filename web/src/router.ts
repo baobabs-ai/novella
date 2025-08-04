@@ -22,7 +22,7 @@ const router = createRouter({
         {
           path: '/sign-in',
           name: 'sign-in',
-          meta: { title: '登录' },
+          meta: { title: 'Sign In' },
           component: () => import('./pages/auth/SignIn.vue'),
           props: (route) => ({ from: route.query.from }),
         },
@@ -71,7 +71,7 @@ const router = createRouter({
           children: [
             {
               path: 'web/:favoredId?',
-              meta: { title: '我的收藏' },
+              meta: { title: 'My Favorites' },
               component: () => import('./pages/bookshelf/BookshelfWeb.vue'),
               props: (route) => ({
                 page: Number(route.query.page) || 1,
@@ -82,7 +82,7 @@ const router = createRouter({
             },
             {
               path: 'wenku/:favoredId?',
-              meta: { title: '我的收藏' },
+              meta: { title: 'My Favorites' },
               component: () => import('./pages/bookshelf/BookshelfWenku.vue'),
               props: (route) => ({
                 page: Number(route.query.page) || 1,
@@ -92,7 +92,7 @@ const router = createRouter({
             },
             {
               path: 'local/:favoredId?',
-              meta: { title: '我的收藏' },
+              meta: { title: 'My Favorites' },
               component: () => import('./pages/bookshelf/BookshelfLocal.vue'),
               props: (route) => ({
                 favoredId: route.params.favoredId || 'default',
@@ -112,7 +112,7 @@ const router = createRouter({
 
         {
           path: '/novel',
-          meta: { title: '网络小说' },
+          meta: { title: 'Web Novels' },
           component: () => import('./pages/list/WebNovelList.vue'),
           props: (route) => ({
             page: Number(route.query.page) || 1,
@@ -131,7 +131,7 @@ const router = createRouter({
         },
         {
           path: '/novel-edit/:providerId/:novelId',
-          meta: { title: '编辑网络小说' },
+          meta: { title: 'Edit Web Novel' },
           component: () => import('./pages/novel/WebNovelEdit.vue'),
           props: (route) => ({
             providerId: route.params.providerId,
@@ -142,7 +142,7 @@ const router = createRouter({
 
         {
           path: '/wenku',
-          meta: { title: '文库小说' },
+          meta: { title: 'Light Novels' },
           component: () => import('./pages/list/WenkuNovelList.vue'),
           props: (route) => ({
             page: Number(route.query.page) || 1,
@@ -160,7 +160,7 @@ const router = createRouter({
         },
         {
           path: '/wenku-edit',
-          meta: { title: '新建文库小说' },
+          meta: { title: 'Create Light Novel' },
           component: () => import('./pages/novel/WenkuNovelEdit.vue'),
           props: (route) => ({
             key: route.path,
@@ -168,7 +168,7 @@ const router = createRouter({
         },
         {
           path: '/wenku-edit/:novelId',
-          meta: { title: '编辑文库小说' },
+          meta: { title: 'Edit Light Novel' },
           component: () => import('./pages/novel/WenkuNovelEdit.vue'),
           props: (route) => ({
             novelId: route.params.novelId,
@@ -178,7 +178,7 @@ const router = createRouter({
 
         {
           path: '/rank/web/:providerId/:typeId',
-          meta: { title: '小说排行' },
+          meta: { title: 'Novel Rankings' },
           component: () => import('./pages/list/WebNovelRank.vue'),
           props: (route) => ({
             providerId: route.params.providerId as string,
@@ -194,22 +194,22 @@ const router = createRouter({
           children: [
             {
               path: 'gpt',
-              meta: { title: 'GPT工作区' },
+              meta: { title: 'GPT Workspace' },
               component: () => import('./pages/workspace/GptWorkspace.vue'),
             },
             {
               path: 'sakura',
-              meta: { title: 'Sakura工作区' },
+              meta: { title: 'Sakura Workspace' },
               component: () => import('./pages/workspace/SakuraWorkspace.vue'),
             },
             {
               path: 'interactive',
-              meta: { title: '交互翻译' },
+              meta: { title: 'Interactive Translation' },
               component: () => import('./pages/workspace/Interactive.vue'),
             },
             {
               path: 'toolbox',
-              meta: { title: '小说工具箱' },
+              meta: { title: 'Novel Toolbox' },
               component: () => import('./pages/workspace/Toolbox.vue'),
             },
           ],
@@ -217,7 +217,7 @@ const router = createRouter({
 
         {
           path: '/forum',
-          meta: { title: '论坛' },
+          meta: { title: 'Forum' },
           component: () => import('./pages/forum/Forum.vue'),
           props: (route) => ({
             page: Number(route.query.page) || 1,
@@ -234,7 +234,7 @@ const router = createRouter({
         },
         {
           path: '/forum-edit',
-          meta: { title: '发布文章' },
+          meta: { title: 'Edit Article' },
           component: () => import('./pages/forum/ForumArticleEdit.vue'),
           props: (route) => ({
             key: route.path,
@@ -242,7 +242,7 @@ const router = createRouter({
         },
         {
           path: '/forum-edit/:articleId',
-          meta: { title: '编辑文章' },
+          meta: { title: 'Edit Article' },
           component: () => import('./pages/forum/ForumArticleEdit.vue'),
           props: (route) => ({
             articleId: route.params.articleId,
@@ -252,7 +252,7 @@ const router = createRouter({
 
         {
           path: '/setting',
-          meta: { title: '设置' },
+          meta: { title: 'Settings' },
           component: () => import('./pages/other/Setting.vue'),
         },
 
@@ -309,7 +309,7 @@ const router = createRouter({
 router.afterEach((to, from) => {
   // 章节之间标题依靠手动切换，这里跳过
   if (!(to.meta.isReader && from.meta.isReader)) {
-    const defaultTitle = '轻小说机翻机器人';
+    const defaultTitle = 'Light Novel Translation Robot';
     const title = to.meta.title;
     if (title !== undefined) {
       document.title = title + ' | ' + defaultTitle;

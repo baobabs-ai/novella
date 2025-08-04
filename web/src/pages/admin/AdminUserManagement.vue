@@ -6,9 +6,9 @@ import { UserOutline, UserRole } from '@/model/User';
 
 const userRole = ref<UserRole>('normal');
 const userRoleOptions = [
-  { value: 'normal', label: '正常用户' },
-  { value: 'maintainer', label: '维护者' },
-  { value: 'banned', label: '封禁用户' },
+  { value: 'normal', label: 'Normal User' },
+  { value: 'maintainer', label: 'Maintainer' },
+  { value: 'banned', label: 'Banned User' },
 ];
 
 const currentPage = ref(1);
@@ -40,12 +40,12 @@ watch(userRole, () => {
 });
 
 const roleToReadableText = (role: UserRole) => {
-  if (role === 'normal') return '普通用户';
-  else if (role === 'trusted') return '信任用户';
-  else if (role === 'maintainer') return '维护者';
-  else if (role === 'admin') return '管理员';
-  else if (role === 'banned') return '封禁用户';
-  else return '未知';
+  if (role === 'normal') return 'Normal User';
+  else if (role === 'trusted') return 'Trusted User';
+  else if (role === 'maintainer') return 'Maintainer';
+  else if (role === 'admin') return 'Administrator';
+  else if (role === 'banned') return 'Banned User';
+  else return 'Unknown';
 };
 </script>
 
@@ -70,11 +70,11 @@ const roleToReadableText = (role: UserRole) => {
     <n-table :bordered="false">
       <thead>
         <tr>
-          <th style="width: 150px"><b>用户名</b></th>
-          <th style="width: 80px"><b>角色</b></th>
-          <th style="width: 150px"><b>邮箱</b></th>
-          <th style="width: 150px"><b>创建时间</b></th>
-          <th><b>操作</b></th>
+          <th style="width: 150px"><b>Username</b></th>
+          <th style="width: 80px"><b>Role</b></th>
+          <th style="width: 150px"><b>Email</b></th>
+          <th style="width: 150px"><b>Created At</b></th>
+          <th><b>Operations</b></th>
         </tr>
       </thead>
       <tbody>

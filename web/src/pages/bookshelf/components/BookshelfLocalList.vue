@@ -66,15 +66,15 @@ defineExpose({
 
 <template>
   <n-flex vertical>
-    <c-action-wrapper title="搜索">
+    <c-action-wrapper title="Search">
       <search-input
         v-model:value="search"
-        placeholder="搜索文件名"
+        placeholder="Search file name"
         style="max-width: 400px"
       />
     </c-action-wrapper>
 
-    <c-action-wrapper title="排序" align="center">
+    <c-action-wrapper title="Sort" align="center">
       <order-sort
         v-model:value="setting.localVolumeOrder"
         :options="Setting.localVolumeOrderOptions"

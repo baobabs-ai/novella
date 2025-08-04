@@ -84,8 +84,8 @@ const importToWorkspace = async () => {
   await repo
     .createVolume(file, 'default')
     .then(() => repo.updateGlossary(file.name, toRaw(props.glossary)))
-    .then(() => message.success('导入成功'))
-    .catch((error) => message.error(`导入失败:${error}`));
+    .then(() => message.success('Import successful'))
+    .catch((error) => message.error(`Import failed:${error}`));
 };
 
 const pressControl = useKeyModifier('Control');
@@ -95,7 +95,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
   const taskNumber = translateOptions.value!.getTaskNumber();
 
   if (endIndex <= startIndex || startIndex >= total) {
-    message.error('排队失败：没有选中章节');
+    message.error('Queue failed: no chapter selected');
     return;
   }
 
@@ -144,9 +144,9 @@ const submitJob = (id: 'gpt' | 'sakura') => {
     return success;
   });
   if (results.length === 1 && !results[0]) {
-    message.error('排队失败：翻译任务已经存在');
+    message.error('Queue failed: translation task already exists');
   } else {
-    message.success('排队成功');
+    message.success('Queue successful');
   }
 };
 </script>
@@ -165,7 +165,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
 
   <n-flex vertical style="margin-top: 16px">
     <n-text>
-      总计 {{ total }} / 百度 {{ baidu }} / 有道 {{ youdao }} / GPT {{ gpt }} /
+      Total {{ total }} / Baidu {{ baidu }} / Youdao {{ youdao }} / GPT {{ gpt }} /
       Sakura {{ sakura }}
     </n-text>
 
@@ -173,25 +173,25 @@ const submitJob = (id: 'gpt' | 'sakura') => {
       <n-button-group>
         <c-button
           v-if="setting.enabledTranslator.includes('baidu')"
-          label="更新百度"
+          label="Update Baidu"
           :round="false"
           @action="startTranslateTask('baidu')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('youdao')"
-          label="更新有道"
+          label="Update Youdao"
           :round="false"
           @action="startTranslateTask('youdao')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('gpt')"
-          label="排队GPT"
+          label="Queue GPT"
           :round="false"
           @action="submitJob('gpt')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('sakura')"
-          label="排队Sakura"
+          label="Queue Sakura"
           :round="false"
           @action="submitJob('sakura')"
         />

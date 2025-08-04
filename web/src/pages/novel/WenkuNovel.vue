@@ -196,7 +196,7 @@ const showWebNovelsModal = ref(false);
         </c-x-scrollbar>
       </template>
 
-      <section-header title="目录" />
+      <section-header title="Catalog" />
       <template v-if="whoami.isSignedIn">
         <upload-button :allow-zh="whoami.isMaintainer" :novel-id="novelId" />
 
@@ -252,7 +252,7 @@ const showWebNovelsModal = ref(false);
           v-if="
             metadata.volumeJp.length === 0 && metadata.volumeZh.length === 0
           "
-          description="请不要创建一个空页面"
+          description="Please do not create an empty page"
         />
 
         <n-empty
@@ -261,10 +261,10 @@ const showWebNovelsModal = ref(false);
             metadata.volumeJp.length === 0 &&
             metadata.volumeZh.length > 0
           "
-          description="网站已撤下中文小说板块，请上传日文生成翻译"
+          description="Website has removed the Chinese novel section, please upload Japanese to generate translation"
         />
       </template>
-      <n-p v-else>游客无法查看内容，请先登录。</n-p>
+      <n-p v-else>Guests cannot view content, please log in first.</n-p>
 
       <comment-list
         v-if="!setting.hideCommmentWenkuNovel"

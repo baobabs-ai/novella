@@ -17,14 +17,14 @@ const formRules: FormRules = {
   emailOrUsername: [
     {
       validator: (_rule: FormItemRule, value: string) => value.length > 0,
-      message: '邮箱/用户名不能为空',
+      message: 'Email/Username cannot be empty',
       trigger: 'input',
     },
   ],
   password: [
     {
       validator: (_rule: FormItemRule, value: string) => value.length >= 8,
-      message: '密码至少为8个字符',
+      message: 'Password must be at least 8 characters',
       trigger: 'input',
     },
   ],
@@ -42,7 +42,7 @@ const signIn = async () => {
     loadingBar.finish();
   } catch (e) {
     loadingBar.error();
-    message.error('登录失败:' + (await formatError(e)));
+    message.error('Login failed:' + (await formatError(e)));
   }
 };
 </script>
@@ -58,7 +58,7 @@ const signIn = async () => {
     <n-form-item-row path="emailOrUsername">
       <n-input
         v-model:value="formValue.emailOrUsername"
-        placeholder="用户名/邮箱"
+        placeholder="Username/Email"
         :input-props="{ spellcheck: false }"
       />
     </n-form-item-row>
@@ -67,14 +67,14 @@ const signIn = async () => {
         v-model:value="formValue.password"
         type="password"
         show-password-on="click"
-        placeholder="密码"
+        placeholder="Password"
         @keyup.enter="signIn()"
       />
     </n-form-item-row>
   </n-form>
 
-  <c-a :to="{ name: 'reset-password' }">忘记密码</c-a>
+  <c-a :to="{ name: 'reset-password' }">Forget Password</c-a>
   <n-button type="primary" block @click="signIn" style="margin-top: 20px">
-    登录
+    Sign In
   </n-button>
 </template>

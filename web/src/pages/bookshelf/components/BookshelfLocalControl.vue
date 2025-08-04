@@ -23,7 +23,7 @@ const { setting } = Locator.settingRepository();
 
 const store = useBookshelfLocalStore();
 
-// 删除小说
+// Delete novels
 const showDeleteModal = ref(false);
 
 const openDeleteModal = () => {
@@ -41,7 +41,7 @@ const deleteSelected = async () => {
   message.info(`${success} novels deleted, ${failed} failed`);
 };
 
-// 下载小说
+// Download novels
 const showDownloadModal = ref(false);
 
 const downloadSelected = async () => {
@@ -64,7 +64,7 @@ const downloadRawSelected = async () => {
   message.info(`${success} novels original text packaged, ${failed} failed`);
 };
 
-// 移动小说
+// Move novels
 const { favoreds } = Locator.favoredRepository();
 
 const targetFavoredId = ref(props.favoredId);
@@ -100,7 +100,7 @@ const moveToFavored = async () => {
   await store.loadVolumes();
 };
 
-// 生成翻译任务
+// Generate translation tasks
 const translateLevel = ref<'expire' | 'all'>('expire');
 const reverseOrder = ref(false);
 const shouldTopJob = useKeyModifier('Control');

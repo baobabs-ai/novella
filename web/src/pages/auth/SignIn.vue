@@ -33,13 +33,13 @@ watch(
       animated
       style="width: 100%"
     >
-      <n-tab-pane name="signin" tab="登录">
+      <n-tab-pane name="signin" tab="Sign In">
         <div style="padding: 20px">
           <sign-in-form />
         </div>
       </n-tab-pane>
 
-      <n-tab-pane name="signup" tab="注册">
+      <n-tab-pane name="signup" tab="Sign Up">
         <div style="padding: 20px">
           <sign-up-form />
         </div>

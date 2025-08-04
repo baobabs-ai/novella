@@ -22,10 +22,10 @@ const { setting } = Locator.settingRepository();
 const options = computed(() => {
   return [
     {
-      label: '排序',
+      label: 'Sort',
       tags: setting.value.favoriteCreateTimeFirst
-        ? ['收藏时间', '更新时间']
-        : ['更新时间', '收藏时间'],
+        ? ['Collection Time', 'Update Time']
+        : ['Update Time', 'Collection Time'],
     },
   ];
 });
@@ -36,7 +36,7 @@ const loader = computed<Loader<WenkuNovelOutlineDto>>(() => {
     const optionNth = (n: number): string => options.value[n].tags[selected[n]];
     const optionSort = () => {
       const option = optionNth(0);
-      if (option === '更新时间') {
+      if (option === 'Update Time') {
         return 'update';
       } else {
         return 'create';

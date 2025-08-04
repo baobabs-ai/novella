@@ -59,9 +59,9 @@ export class OpenAiTranslator implements SegmentTranslator {
       if (binaryRange !== undefined) {
         const [left, right] = binaryRange;
         if (right - left === 1) {
-          parts.push(`翻译第${left + 1}行`);
+          parts.push(`Translate line ${left + 1}`);
         } else {
-          parts.push(`翻译${left + 1}到${right}行`);
+          parts.push(`Translate lines ${left + 1} to ${right}`);
         }
       }
       if (lineNumber !== undefined) {
@@ -108,9 +108,9 @@ export class OpenAiTranslator implements SegmentTranslator {
 
         if (seg.length !== result.answer.length) {
           failBecasueLineNumberNotMatch += 1;
-          this.log('输出错误：输出行数不匹配');
+          this.log('Output error: output language is not English');
         } else if (!isChinese) {
-          this.log('输出错误：输出语言不是中文');
+          this.log('Output error: output language is not English');
         } else {
           return result.answer;
         }
@@ -122,7 +122,7 @@ export class OpenAiTranslator implements SegmentTranslator {
       retry += 1;
       if (retry >= 3) {
         if (failBecasueLineNumberNotMatch === 3 && seg.length > 1) {
-          this.log('连续三次行数不匹配，启动二分翻译');
+          this.log('Three consecutive line count mismatches, starting binary translation');
           break;
         } else {
           throw Error('重试次数太多');
@@ -166,13 +166,13 @@ export class OpenAiTranslator implements SegmentTranslator {
       }
 
       if (right - left > 1) {
-        this.log('失败，继续二分');
+        this.log('Failed, continuing binary search');
         const mid = Math.floor((left + right) / 2);
         const partLeft = await binaryTranslateSegment(left, mid);
         const partRight = await binaryTranslateSegment(mid, right);
         return partLeft.concat(partRight);
       } else {
-        this.log('失败，无法继续，退出');
+        this.log('Failed, cannot continue, exiting');
         throw Error('重试次数太多');
       }
     };
@@ -247,7 +247,7 @@ export class OpenAiTranslator implements SegmentTranslator {
             '触发24小时限制',
             -1,
           ],
-          ['Only one message at a time.', '帐号被占用或是未正常退出', 2 * 60],
+          ['Only one message at a time.', 'Account is occupied or not properly exited', 2 * 60],
           ['rate limited', '触发GPT代理限速', 5],
         ];
 
@@ -287,14 +287,14 @@ export class OpenAiTranslator implements SegmentTranslator {
       this.log(`未知错误，请反馈给站长：${message}`);
     } else if (delaySeconds > 0) {
       if (delaySeconds > 60) {
-        this.log('发生错误：' + message + `，暂停${delaySeconds / 60}分钟`);
+        this.log('Error occurred: ' + message + `, pause ${delaySeconds / 60} minutes`);
       } else {
-        this.log('发生错误：' + message + `，暂停${delaySeconds}秒`);
+        this.log('Error occurred: ' + message + `, pause ${delaySeconds} seconds`);
       }
       await delay(delaySeconds * 1000, signal);
       return;
     } else {
-      this.log('发生错误：' + message + '，退出');
+      this.log('Error occurred: ' + message + ', exiting');
       throw 'quit';
     }
   }

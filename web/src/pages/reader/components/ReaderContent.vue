@@ -32,7 +32,7 @@ useScroll(window, { onScroll: addReadPosition, throttle: 1000 });
 onMounted(async () => {
   const readPosition = readPositionRepository.getPosition(props.gnid);
   if (readPosition && readPosition.chapterId === props.chapterId) {
-    // hacky: 等待段落显示完成
+    // hacky: wait for paragraph display to complete
     await nextTick();
     await nextTick();
     window.scrollTo({ top: readPosition.scrollY });

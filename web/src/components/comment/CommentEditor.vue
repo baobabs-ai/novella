@@ -22,7 +22,7 @@ const content = ref('');
 
 const reply = async () => {
   if (content.value.length === 0) {
-    message.info('回复内容不能为空');
+    message.info('Reply content cannot be empty');
     return;
   }
 
@@ -37,7 +37,7 @@ const reply = async () => {
         content.value = '';
         emit('replied');
       }),
-    '回复发布',
+    'Reply published',
     message,
   );
 };

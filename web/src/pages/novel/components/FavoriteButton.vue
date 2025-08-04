@@ -25,7 +25,7 @@ onMounted(async () => {
     try {
       await favoredRepository.loadRemoteFavoreds();
     } catch (e) {
-      message.error(`获取收藏列表失败：${e}`);
+      message.error(`Failed to get favorites list: ${e}`);
     }
   }
 });
@@ -43,7 +43,7 @@ const favoriteNovel = (favoredId: string) =>
       emit('update:favored', favoredId);
       showFavoredModal.value = false;
     }),
-    '收藏',
+    'Favorited',
     message,
   );
 
@@ -54,7 +54,7 @@ const unfavoriteNovel = async () => {
       emit('update:favored', undefined);
       showFavoredModal.value = false;
     }),
-    '取消收藏',
+    'Unfavorite',
     message,
   );
 };
@@ -67,14 +67,14 @@ const selectedFavoredId = ref(props.favored ?? 'default');
   <template v-if="favoreds.length <= 1">
     <c-button
       v-if="favored && favoredTitle"
-      label="已收藏"
+      label="Favorited"
       :icon="FavoriteOutlined"
       require-login
       @action="unfavoriteNovel"
     />
     <c-button
       v-else
-      label="收藏"
+      label="Favorite"
       :icon="FavoriteBorderOutlined"
       require-login
       @action="favoriteNovel(favoreds[0].id)"
@@ -83,14 +83,14 @@ const selectedFavoredId = ref(props.favored ?? 'default');
 
   <template v-else>
     <c-button
-      :label="favored && favoredTitle ? '已收藏:' + favoredTitle : '收藏'"
+      :label="favored && favoredTitle ? 'Favorited:' + favoredTitle : 'Favorite'"
       :icon="favored ? FavoriteOutlined : FavoriteBorderOutlined"
       require-login
       @action="showFavoredModal = true"
     />
   </template>
 
-  <c-modal v-model:show="showFavoredModal" title="收藏到...">
+  <c-modal v-model:show="showFavoredModal" title="Favorite to...">
     <n-radio-group v-model:value="selectedFavoredId">
       <n-flex vertical size="large">
         <n-radio

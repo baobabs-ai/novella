@@ -20,7 +20,7 @@ const { setting } = Locator.settingRepository();
 const favoredRepository = Locator.favoredRepository();
 const { favoreds } = favoredRepository;
 
-// 删除小说
+// Delete novels
 const showDeleteModal = ref(false);
 
 const openDeleteModal = () => {
@@ -51,7 +51,7 @@ const deleteSelected = async () => {
   message.info(`${success} novels deleted, ${failed} failed`);
 };
 
-// 移动小说
+// Move novels
 const targetFavoredId = ref(props.favoredId);
 
 const moveToFavored = async () => {
@@ -85,7 +85,7 @@ const moveToFavored = async () => {
   window.location.reload();
 };
 
-// 生成翻译任务
+// Generate translation tasks
 const translateLevel = ref<'normal' | 'expire' | 'all'>('normal');
 const forceMetadata = ref(false);
 const first5 = ref(false);

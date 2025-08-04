@@ -21,7 +21,7 @@ const formRules: FormRules = {
   emailOrUsername: [
     {
       validator: (rule: FormItemRule, value: string) => value.length > 0,
-      message: '邮箱/用户名不能为空',
+      message: 'Email/Username cannot be empty',
       trigger: 'input',
     },
   ],
@@ -91,7 +91,7 @@ const sendEmail = () =>
       <n-form-item-row path="emailOrUsername">
         <n-input
           v-model:value="formValue.emailOrUsername"
-          placeholder="邮箱/用户名"
+          placeholder="Email/Username"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>

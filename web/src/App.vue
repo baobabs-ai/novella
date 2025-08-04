@@ -4,21 +4,21 @@ import { darkTheme, dateZhCN, useOsTheme, zhCN } from 'naive-ui';
 import { Locator } from '@/data';
 import { RegexUtil } from '@/util';
 
-// 激活权限
+// Activate permissions
 const authRepository = Locator.authRepository();
 authRepository.activateAuth();
 
 const settingRepository = Locator.settingRepository();
 settingRepository.activateCC();
 
-// 清理pinia留下的垃圾
+// Clean up garbage left by pinia
 Object.keys(window.localStorage).forEach((key) => {
   if (key.startsWith('pubkey')) {
     window.localStorage.removeItem(key);
   }
 });
 
-// 主题
+// Theme
 const route = useRoute();
 const osThemeRef = useOsTheme();
 
@@ -60,13 +60,13 @@ const theme = computed(() => {
   }
 });
 
-// 处理Safari的奇妙问题
+// Handle Safari's peculiar issue
 if (RegexUtil.isSafari(navigator.userAgent)) {
-  // 防止Safari返回上一页时的灰屏
+  // Prevent gray screen when Safari returns to the previous page
   // https://github.com/reactjs/react.dev/blob/e45ac5552c13fc50832624b7deb0c6f631d461bf/src/pages/_app.tsx#L30
   window.history.scrollRestoration = 'auto';
 
-  // 禁用浏览器聚焦时的自动缩放，但浏览器还是会允许用户手动缩放
+  // Disable automatic zoom when browser focuses, but browser will still allow users to manually zoom
   const meta = document.querySelector('meta[name="viewport"]')!;
   const content = meta.getAttribute('content')!;
   meta.setAttribute('content', `${content}, user-scalable=no`);

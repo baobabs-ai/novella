@@ -12,7 +12,7 @@ const showListModal = ref(false);
     @action="showListModal = true"
   />
 
-  <c-drawer-right v-model:show="showListModal" title="收藏夹">
+  <c-drawer-right v-model:show="showListModal" title="Collections">
     <template #action>
       <bookshelf-add-button />
     </template>

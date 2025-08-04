@@ -38,7 +38,7 @@ const formRules: FormRules = {
     {
       validator: (_rule: FormItemRule, value: string) =>
         value.length >= 3 && value.length <= 15,
-      message: '用户名应当为3～15个字符',
+      message: 'Username should be 3-15 characters',
       trigger: 'input',
     },
   ],
@@ -76,7 +76,7 @@ const signUp = async () => {
     loadingBar.finish();
   } catch (e) {
     loadingBar.error();
-    message.error('注册失败:' + (await formatError(e)));
+    message.error('Registration failed:' + (await formatError(e)));
   }
 };
 
@@ -124,7 +124,7 @@ const sendEmail = () =>
     <n-form-item-row path="username">
       <n-input
         v-model:value="formValue.username"
-        placeholder="用户名"
+        placeholder="Username"
         :input-props="{ autocomplete: 'off', spellcheck: false }"
       />
     </n-form-item-row>
@@ -147,5 +147,5 @@ const sendEmail = () =>
       />
     </n-form-item-row>
   </n-form>
-  <n-button type="primary" block @click="signUp">注册</n-button>
+  <n-button type="primary" block @click="signUp">Sign Up</n-button>
 </template>

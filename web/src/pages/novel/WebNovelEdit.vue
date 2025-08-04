@@ -154,7 +154,7 @@ const submit = async () => {
     <n-divider />
 
     <c-button
-      label="提交"
+      label="Submit"
       :icon="UploadOutlined"
       require-login
       size="large"
