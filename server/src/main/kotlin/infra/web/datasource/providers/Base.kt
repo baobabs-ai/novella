@@ -80,10 +80,10 @@ open class WebNovelProviderException(msg: String) : Exception(msg)
 class NovelIdShouldBeReplacedException(
     providerId: String,
     targetNovelId: String,
-) : WebNovelProviderException("小说ID不合适，应当使用：/${providerId}/${targetNovelId}")
+) : WebNovelProviderException("Novel ID is not suitable, should use: /${providerId}/${targetNovelId}")
 
 class NovelRateLimitedException
-    : WebNovelProviderException("源站获取频率太快")
+      : WebNovelProviderException("Source site request frequency too high")
 
 class NovelAccessDeniedException
-    : WebNovelProviderException("当前账号无法获取该小说资源")
+      : WebNovelProviderException("Current account cannot access this novel resource")

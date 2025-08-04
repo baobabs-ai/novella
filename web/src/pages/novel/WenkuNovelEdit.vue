@@ -338,20 +338,20 @@ const levelOptions = [
 
     <n-card embedded :bordered="false" style="margin-bottom: 20px">
       <n-text type="error">
-        <b>创建文库小说注意事项：</b>
+        <b>Light Novel Creation Notes:</b>
       </n-text>
       <n-ul>
         <n-li>
-          请先安装机翻站扩展以启用智能导入功能，另外自动机翻简介功能要求你能使用有道机翻。
+          Please install the translation site extension first to enable smart import functionality, and the automatic translation introduction feature requires you to be able to use Youdao translation.
         </n-li>
         <n-li>
-          文库小说只允许已经发行单行本的日语小说，原则上以亚马逊上可以买到为准，系列小说不要分开导入。
+          Light novels only allow Japanese novels that have been published as single volumes, in principle based on what can be purchased on Amazon, series novels should not be imported separately.
         </n-li>
         <n-li>
-          在导入栏输入亚马逊系列/单本链接直接导入，或是输入小说日文主标题搜索导入。
+          Enter Amazon series/single volume links in the import field for direct import, or enter the novel's Japanese main title to search and import.
         </n-li>
         <n-li>
-          导入R18书需要注册机翻站满一个月、使用日本IP，并在亚马逊上点过“已满18岁”。
+          Importing R18 books requires registering on the translation site for one month, using a Japanese IP, and clicking "I am 18 or older" on Amazon.
         </n-li>
       </n-ul>
     </n-card>
@@ -373,7 +373,7 @@ const levelOptions = [
             :input-props="{ spellcheck: false }"
           />
           <c-button
-            label="导入"
+            label="Import"
             :round="false"
             type="primary"
             @action="populateNovelFromAmazon(amazonUrl, false)"
@@ -381,7 +381,7 @@ const levelOptions = [
         </n-input-group>
         <n-flex>
           <c-button
-            label="在亚马逊搜索"
+            label="Search on Amazon"
             secondary
             tag="a"
             :href="`https://www.amazon.co.jp/s?k=${encodeURIComponent(
@@ -391,14 +391,14 @@ const levelOptions = [
           />
           <c-button
             secondary
-            label="刷新分卷"
+            label="Refresh Volumes"
             @action="populateNovelFromAmazon('', true)"
           />
           <c-button
             v-if="whoami.isMaintainer"
             type="error"
             secondary
-            label="标记重复"
+            label="Mark as Duplicate"
             @action="markAsDuplicate"
           />
         </n-flex>
@@ -412,39 +412,39 @@ const levelOptions = [
       :label-placement="isWideScreen ? 'left' : 'top'"
       label-width="auto"
     >
-      <n-form-item-row path="title" label="日文标题">
+      <n-form-item-row path="title" label="Japanese Title">
         <n-input
           v-model:value="formValue.title"
-          placeholder="请输入日文标题"
+          placeholder="Please enter Japanese title"
           maxlength="80"
           show-count
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="titleZh" label="中文标题">
+      <n-form-item-row path="titleZh" label="English Title">
         <n-input
           v-model:value="formValue.titleZh"
-          placeholder="请输入中文标题"
+          placeholder="Please enter English title"
           maxlength="80"
           show-count
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="cover" label="封面链接">
+      <n-form-item-row path="cover" label="Cover Link">
         <n-input
           v-model:value="formValue.cover"
-          placeholder="请输入封面链接"
+          placeholder="Please enter cover link"
           :input-props="{ spellcheck: false }"
         />
       </n-form-item-row>
 
-      <n-form-item-row path="authors" label="作者">
+      <n-form-item-row path="authors" label="Authors">
         <n-dynamic-tags v-model:value="formValue.authors" />
       </n-form-item-row>
 
-      <n-form-item-row path="artists" label="画师">
+      <n-form-item-row path="artists" label="Artists">
         <n-dynamic-tags v-model:value="formValue.artists" />
       </n-form-item-row>
 

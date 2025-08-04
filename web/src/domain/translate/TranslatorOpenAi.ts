@@ -442,7 +442,7 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
 
   const buildPrompt = () => {
     const parts = [
-      '请你作为一个轻小说翻译者，将下面的轻小说翻译成简体中文。要求翻译准确，译文流畅，尽量保持原文写作风格。要求人名和专有名词也要翻译成中文。既不要漏掉任何一句，也不要增加额外的说明。注意保持换行格式，译文的行数必须要和原文相等。',
+      'Please act as a light novel translator and translate the following light novel into English. The translation should be accurate, fluent, and maintain the original writing style. Character names and proper nouns should also be translated into English. Do not omit any sentences or add extra explanations. Pay attention to maintaining line breaks, and the number of lines in the translation must be equal to the original.',
     ];
 
     const matchedWordPairs: [string, string][] = [];
@@ -455,15 +455,15 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
       }
     }
     if (matchedWordPairs.length > 0) {
-      parts.push('翻译的时候参考下面的术语表：');
+      parts.push('Please refer to the following glossary when translating:');
       for (const [jp, zh] of matchedWordPairs) {
         parts.push(`${jp} => ${zh}`);
       }
     }
 
-    parts.push('小说原文如下，注意要保留每一段开头的编号：');
+    parts.push('The novel text is as follows, please note to preserve the numbering at the beginning of each paragraph:');
     lines.forEach((line, i) => parts.push(`#${i + 1}:${line}`));
-    if (lines.length === 1) parts.push('原文到此为止'); // 防止乱编
+    if (lines.length === 1) parts.push('End of original text'); // Prevent fabrication
     return parts.join('\n');
   };
 
