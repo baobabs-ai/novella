@@ -43,28 +43,28 @@ const startTask = async (
   signal?: AbortSignal,
 ) => {
   if (running.value) {
-    message.info('已有任务在运行。');
+    message.info('A task is already running.');
     return 'fail';
   }
 
   const buildLabel = () => {
     const idToLaber = {
-      baidu: '百度',
-      youdao: '有道',
+      baidu: 'Baidu',
+      youdao: 'Youdao',
       gpt: 'GPT',
       sakura: 'Sakura',
     };
-    let label = `${idToLaber[translatorDesc.id]}翻译`;
+    let label = `${idToLaber[translatorDesc.id]} Translation`;
     const suffixParts: string[] = [];
     if (params.level === 'expire') {
-      suffixParts.push('过期章节');
+      suffixParts.push('Expired Chapters');
     } else if (params.level === 'all') {
-      suffixParts.push('全部章节');
+      suffixParts.push('All Chapters');
     } else if (params.level === 'sync') {
-      suffixParts.push('源站同步');
+      suffixParts.push('Source Sync');
     }
     if (params.forceMetadata) {
-      suffixParts.push('重翻目录');
+      suffixParts.push('Re-translate TOC');
     }
     if (suffixParts.length > 0) {
       label = label + ` [${suffixParts.join('/')}]`;

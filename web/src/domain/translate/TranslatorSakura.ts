@@ -52,33 +52,33 @@ export class SakuraTranslator implements SegmentTranslator {
 
   allowUpload = () => {
     if (this.segLength !== 500) {
-      this.log('分段长度不是500');
+      this.log('Segment length is not 500');
       return false;
     }
     if (this.prevSegLength !== 500) {
-      this.log('前文长度不是500');
+      this.log('Previous segment length is not 500');
       return false;
     }
 
     if (this.model === undefined) {
-      this.log('无法获取模型数据');
+      this.log('Unable to get model data');
       return false;
     }
 
     const metaCurrent = this.model.meta;
     const metaExpected = SakuraTranslator.allowModels[this.model.id]?.meta;
     if (metaExpected === undefined) {
-      this.log(`模型为${this.model.id}，禁止上传`);
+      this.log(`Model is ${this.model.id}, upload forbidden`);
       return false;
     }
 
     for (const key in metaExpected) {
       if (metaCurrent[key] !== metaExpected[key]) {
-        this.log(`模型检查未通过，不要尝试欺骗模型检查`);
+        this.log(`Model check failed, do not try to deceive model check`);
         return false;
       }
     }
-    this.log(`模型为${this.model.id}，允许上传`);
+    this.log(`Model is ${this.model.id}, upload allowed`);
     return true;
   };
 
@@ -92,7 +92,7 @@ export class SakuraTranslator implements SegmentTranslator {
     const concatedPrevSeg =
       prevSegCount === 0 ? '' : prevSegs.slice(prevSegCount).flat().join('\n');
 
-    // 正常翻译
+    // Normal translation
     let retry = 1;
     while (retry < 3) {
       const { text, hasDegradation } = await this.createChatCompletions(
@@ -104,17 +104,17 @@ export class SakuraTranslator implements SegmentTranslator {
       );
       const splitText = text.replaceAll('<|im_end|>', '').split('\n');
 
-      const parts: string[] = [`第${retry}次`];
+      const parts: string[] = [`Attempt ${retry}`];
       const linesNotMatched = seg.length !== splitText.length;
       if (hasDegradation) {
-        parts.push('退化');
+        parts.push('Degraded');
       } else if (linesNotMatched) {
-        parts.push('行数不匹配');
+        parts.push('Line count mismatch');
       } else {
-        parts.push('成功');
+        parts.push('Success');
       }
       const detail = [seg.join('\n'), text];
-      this.log(parts.join('　'), detail);
+      this.log(parts.join(' '), detail);
 
       if (!hasDegradation && !linesNotMatched) {
         return splitText;
@@ -123,9 +123,9 @@ export class SakuraTranslator implements SegmentTranslator {
       }
     }
 
-    // 逐行翻译
+    // Line-by-line translation
     {
-      this.log('逐行翻译');
+      this.log('Line-by-line translation');
       let degradationLineCount = 0;
       const resultPerLine = [];
       for (const line of seg) {
@@ -138,9 +138,9 @@ export class SakuraTranslator implements SegmentTranslator {
         );
         if (hasDegradation) {
           degradationLineCount += 1;
-          this.log(`单行退化${degradationLineCount}次`, [line, text]);
+          this.log(`Single line degraded ${degradationLineCount} times`, [line, text]);
           if (degradationLineCount >= 2) {
-            throw Error('单个分段有2行退化，Sakura翻译器可能存在异常');
+            throw Error('Single segment has 2 degradation lines, Sakura translator may have issues');
           } else {
             resultPerLine.push(line);
           }
@@ -160,7 +160,7 @@ export class SakuraTranslator implements SegmentTranslator {
         },
       })
       .catch((e) => {
-        this.log(`获取模型数据失败：${e}`);
+        this.log(`Failed to get model data: ${e}`);
       });
     const model = modelsPage?.data[0];
     if (model === undefined) {
@@ -198,26 +198,26 @@ export class SakuraTranslator implements SegmentTranslator {
 
     if (this.version === '1.0') {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，不擅自添加原文中没有的代词。',
+        'You are a light novel translation model that can smoothly translate Japanese into English in the style of Japanese light novels, correctly using personal pronouns in context, and not arbitrarily adding pronouns that are not in the original text.',
       );
       if (prevText !== '') {
         assistant(prevText);
       }
 
       if (Object.keys(glossary).length === 0) {
-        user(`将下面的日文文本翻译成中文：${text}`);
+        user(`Translate the following Japanese text into English: ${text}`);
       } else {
         const glossaryHint = Object.entries(glossary)
           .map(([wordJp, wordZh]) => `${wordJp}->${wordZh}`)
           .join('\n');
         user(
-          `根据以下术语表（可以为空）：\n${glossaryHint}\n` +
-            `将下面的日文文本根据对应关系和备注翻译成中文：${text}`,
+          `Based on the following glossary (can be empty):\n${glossaryHint}\n` +
+            `Translate the following Japanese text into English according to the corresponding relationships and notes: ${text}`,
         );
       }
     } else if (this.version === '0.10') {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地使用给定的术语表以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，注意不要混淆使役态和被动态的主语和宾语，不要擅自添加原文中没有的代词，也不要擅自增加或减少换行。',
+        'You are a light novel translation model that can smoothly use the given glossary to translate Japanese into English in the style of Japanese light novels, correctly using personal pronouns in context, being careful not to confuse the subject and object of causative and passive forms, not arbitrarily adding pronouns that are not in the original text, and not arbitrarily adding or removing line breaks.',
       );
       if (prevText !== '') {
         assistant(prevText);
@@ -228,17 +228,17 @@ export class SakuraTranslator implements SegmentTranslator {
         .join('\n');
 
       user(
-        `根据以下术语表（可以为空）：\n${glossaryHint}\n\n将下面的日文文本根据上述术语表的对应关系和备注翻译成中文：${text}`,
+        `Based on the following glossary (can be empty):\n${glossaryHint}\n\nTranslate the following Japanese text into English according to the corresponding relationships and notes in the above glossary: ${text}`,
       );
     } else {
       system(
-        '你是一个轻小说翻译模型，可以流畅通顺地以日本轻小说的风格将日文翻译成简体中文，并联系上下文正确使用人称代词，不擅自添加原文中没有的代词。',
+        'You are a light novel translation model that can smoothly translate Japanese into English in the style of Japanese light novels, correctly using personal pronouns in context, and not arbitrarily adding pronouns that are not in the original text.',
       );
       if (prevText !== '') {
         assistant(prevText);
       }
 
-      // 替换术语表词汇
+      // Replace glossary terms
       for (const wordJp of Object.keys(glossary).sort(
         (a, b) => b.length - a.length,
       )) {
@@ -246,7 +246,7 @@ export class SakuraTranslator implements SegmentTranslator {
         text = text.replaceAll(wordJp, wordZh);
       }
 
-      user(`将下面的日文文本翻译成中文：${text}`);
+      user(`Translate the following Japanese text into English: ${text}`);
     }
 
     const maxNewToken = Math.max(Math.ceil(text.length * 1.7), 100);

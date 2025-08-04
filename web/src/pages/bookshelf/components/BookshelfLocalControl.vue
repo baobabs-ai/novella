@@ -47,7 +47,7 @@ const showDownloadModal = ref(false);
 const downloadSelected = async () => {
   const ids = props.selectedIds;
   if (ids.length === 0) {
-    message.info('没有选中小说');
+    message.info('No novels selected');
     return;
   }
   const { success, failed } = await store.downloadVolumes(ids);

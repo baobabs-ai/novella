@@ -144,17 +144,17 @@ const submitJob = (id: 'gpt' | 'sakura') => {
     return success;
   });
   if (results.length === 1 && !results[0]) {
-    message.error('排队失败：翻译任务已经存在');
+    message.error('Queue failed: translation task already exists');
   } else {
-    message.success('排队成功');
+    message.success('Queue successful');
   }
 };
 </script>
 
 <template>
-  <n-text v-if="!whoami.isSignedIn">游客无法使用翻译功能，请先登录。</n-text>
+  <n-text v-if="!whoami.isSignedIn">Guests cannot use translation features, please log in first.</n-text>
   <n-text v-else-if="setting.enabledTranslator.length === 0">
-    没有翻译器启用。
+    No translators enabled.
   </n-text>
   <translate-options
     v-else
@@ -165,7 +165,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
 
   <n-flex vertical style="margin-top: 16px">
     <n-text>
-      总计 {{ total }} / 百度 {{ baidu }} / 有道 {{ youdao }} / GPT {{ gpt }} /
+      Total {{ total }} / Baidu {{ baidu }} / Youdao {{ youdao }} / GPT {{ gpt }} /
       Sakura {{ sakura }}
     </n-text>
 
@@ -173,25 +173,25 @@ const submitJob = (id: 'gpt' | 'sakura') => {
       <n-button-group>
         <c-button
           v-if="setting.enabledTranslator.includes('baidu')"
-          label="更新百度"
+          label="Update Baidu"
           :round="false"
           @action="startTranslateTask('baidu')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('youdao')"
-          label="更新有道"
+          label="Update Youdao"
           :round="false"
           @action="startTranslateTask('youdao')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('gpt')"
-          label="排队GPT"
+          label="Queue GPT"
           :round="false"
           @action="submitJob('gpt')"
         />
         <c-button
           v-if="setting.enabledTranslator.includes('sakura')"
-          label="排队Sakura"
+          label="Queue Sakura"
           :round="false"
           @action="submitJob('sakura')"
         />
@@ -200,7 +200,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
 
     <n-button-group>
       <c-button
-        label="下载原文"
+        label="Download Original"
         :round="false"
         tag="a"
         :href="files.jp.url"
@@ -208,7 +208,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
         target="_blank"
       />
       <c-button
-        label="下载机翻"
+        label="Download Translation"
         :round="false"
         tag="a"
         :href="files.zh.url"
@@ -216,7 +216,7 @@ const submitJob = (id: 'gpt' | 'sakura') => {
         target="_blank"
       />
       <c-button
-        label="导入日文至工作区"
+        label="Import Japanese to Workspace"
         :round="false"
         @action="importToWorkspace"
       />

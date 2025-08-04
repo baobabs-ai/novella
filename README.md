@@ -1,26 +1,26 @@
-# 轻小说机翻机器人
+# Light Novel Machine Translation Bot
 
 [![GPL-3.0](https://img.shields.io/github/license/auto-novel/auto-novel)](https://github.com/auto-novel/auto-novel#license)
 [![CI-Server](https://github.com/auto-novel/auto-novel/workflows/CI-Server/badge.svg)](https://github.com/auto-novel/auto-novel/actions/workflows/CI-Server.yml)
 [![CI-Web](https://github.com/auto-novel/auto-novel/workflows/CI-Web/badge.svg)](https://github.com/auto-novel/auto-novel/actions/workflows/CI-Web.yml)
 
-> 重建巴别塔！！
+> Rebuilding the Tower of Babel!!
 
-[轻小说机翻机器人](https://books.fishhawk.top/)是一个自动生成轻小说机翻并分享的网站。在这里，你可以浏览日文网络小说/文库小说，或者上传你自己的 EPUB/TXT 文件，然后生成机翻版本。
+[Light Novel Machine Translation Bot](https://books.fishhawk.top/) is a website that automatically generates and shares machine translations of light novels. Here, you can browse Japanese web novels/light novels, or upload your own EPUB/TXT files, and then generate machine-translated versions.
 
-## 功能
+## Features
 
-- 浏览日本网络小说，支持的网站有：[Kakuyomu](https://kakuyomu.jp/)、[小説家になろう](https://syosetu.com/)、[Novelup](https://novelup.plus/)、[Hameln](https://syosetu.org/)、[Pixiv](https://www.pixiv.net/)、[Alphapolis](https://www.alphapolis.co.jp/)。
-- 生成多种机翻，支持的翻译器有：百度、有道、OpenAI-like API（例如 DeepSeek API）、[Sakura](https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2.5-v1.0-GGUF)。
-- 支持术语表。
-- 支持多种格式，包括日文、中文以及中日对比。
-- 支持生成 EPUB 和 TXT 文件。
-- 支持翻译 EPUB 和 TXT 文件。
-- 支持在线阅读。
+- Browse Japanese web novels from supported sites: [Kakuyomu](https://kakuyomu.jp/), [Syosetu](https://syosetu.com/), [Novelup](https://novelup.plus/), [Hameln](https://syosetu.org/), [Pixiv](https://www.pixiv.net/), [Alphapolis](https://www.alphapolis.co.jp/).
+- Generate multiple machine translations using supported translators: Baidu, Youdao, OpenAI-like API (e.g., DeepSeek API), [Sakura](https://huggingface.co/SakuraLLM/Sakura-14B-Qwen2.5-v1.0-GGUF).
+- Support for glossaries.
+- Support for multiple formats including Japanese, English, and Japanese-English comparison.
+- Support for generating EPUB and TXT files.
+- Support for translating EPUB and TXT files.
+- Support for online reading.
 
-## 贡献
+## Contributing
 
-请参考 [CONTRIBUTING.md](https://github.com/auto-novel/auto-novel/blob/main/CONTRIBUTING.md)
+Please refer to [CONTRIBUTING.md](https://github.com/auto-novel/auto-novel/blob/main/CONTRIBUTING.md)
 
 <a href="https://next.ossinsight.io/widgets/official/compose-recent-top-contributors?repo_id=559577341" target="_blank" style="display: block" align="left">
   <picture>
@@ -29,28 +29,28 @@
   </picture>
 </a>
 
-## 部署
+## Deployment
 
 > [!WARNING]
-> 注意：本项目并不是为了个人部署设计的，不保证所有功能可用和前向兼容。
+> Note: This project is not designed for personal deployment, and all functionality and forward compatibility are not guaranteed.
 
-下载项目：
+Download the project:
 
 ```bash
 > git clone https://github.com/auto-novel/auto-novel.git
 > cd auto-novel
 ```
 
-创建并编辑 `.env` 文件，内容如下:
+Create and edit the `.env` file with the following content:
 
 ```bash
-DATA_PATH=./data                      # 数据的存储位置
-HTTPS_PROXY=https://127.0.0.1:7890    # web 小说代理，可以为空
-PIXIV_COOKIE_PHPSESSID=               # Pixiv cookies，不使用 Pixiv 可以不填
+DATA_PATH=./data                      # Data storage location
+HTTPS_PROXY=https://127.0.0.1:7890    # Web novel proxy, can be empty
+PIXIV_COOKIE_PHPSESSID=               # Pixiv cookies, can be empty if not using Pixiv
 ```
 
-打开 `docker-compose.yml` 文件，酌情修改。
+Open the `docker-compose.yml` file and modify as needed.
 
-运行 `docker compose up [-d]` (`-d` 为后台运行)。
+Run `docker compose up [-d]` (`-d` for background operation).
 
-访问 `http://localhost` 即可。
+Visit `http://localhost` to access the application.
