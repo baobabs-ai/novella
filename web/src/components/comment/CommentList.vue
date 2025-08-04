@@ -68,23 +68,23 @@ const showInput = ref(false);
 </script>
 
 <template>
-  <section-header title="评论" ref="commentSectionRef">
+  <section-header title="Comments" ref="commentSectionRef">
     <c-button
       v-if="!locked"
-      label="发表评论"
+      label="Post Comment"
       :icon="CommentOutlined"
       require-login
       @action="showInput = !showInput"
     />
   </section-header>
 
-  <n-p v-if="locked">评论区已锁定，不能再回复。</n-p>
+  <n-p v-if="locked">Comments are locked, no more replies allowed.</n-p>
 
   <template v-if="showInput">
     <CommentEditor
       :site="site"
       :draft-id="draftId"
-      :placeholder="`发表回复`"
+      :placeholder="`Post reply`"
       @replied="onReplied()"
       @cancel="showInput = false"
     />

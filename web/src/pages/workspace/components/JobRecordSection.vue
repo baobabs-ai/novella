@@ -82,7 +82,7 @@ const downloadVolumes = async () => {
           @click="downloadVolumes"
         />
         <c-button
-          label="清空"
+          label="Clear"
           :icon="DeleteOutlineOutlined"
           :round="false"
           @action="workspace.deleteAllJobRecords()"

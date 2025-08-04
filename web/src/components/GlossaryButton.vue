@@ -71,7 +71,7 @@ const submitGlossary = () =>
         props.value[key] = glossary.value[key];
       }
     }),
-    '术语表提交',
+    'Glossary submitted',
     message,
   );
 
@@ -117,18 +117,18 @@ const exportGlossary = async (ev: MouseEvent) => {
     ev.target as HTMLElement,
   );
   if (isSuccess) {
-    message.success('导出成功：已复制到剪贴板');
+    message.success('Export successful: copied to clipboard');
   } else {
-    message.success('导出失败');
+    message.success('Export failed');
   }
 };
 
 const importGlossary = () => {
   const importedGlossary = Glossary.fromText(importGlossaryRaw.value);
   if (importedGlossary === undefined) {
-    message.error('导入失败：术语表格式不正确');
+    message.error('Import failed: glossary format is incorrect');
   } else {
-    message.success('导入成功');
+    message.success('Import successful');
     for (const jp in importedGlossary) {
       const zh = importedGlossary[jp];
       glossary.value[jp] = zh;
@@ -148,7 +148,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
 
 <template>
   <c-button
-    :label="`术语表[${Object.keys(value).length}]`"
+    :label="`Glossary[${Object.keys(value).length}]`"
     v-bind="$attrs"
     @action="toggleGlossaryModal()"
   />
@@ -168,9 +168,9 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
           <n-text style="font-size: 12px">{{ gnidHint }}</n-text>
 
           <n-text>
-            使用前务必先阅读
-            <c-a to="/forum/660ab4da55001f583649a621">术语表使用指南</c-a>
-            ，不要滥用术语表。
+            Please read the
+            <c-a to="/forum/660ab4da55001f583649a621">Glossary Usage Guide</c-a>
+            before using it, and do not misuse the glossary.
           </n-text>
         </template>
 
@@ -184,7 +184,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
             :input-props="{ spellcheck: false }"
           />
           <c-button
-            label="添加"
+            label="Add"
             :round="false"
             size="small"
             @action="addTerm"
@@ -232,7 +232,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
         <n-flex align="center" :wrap="false">
           <c-button
             :disabled="deletedTerms.length === 0"
-            label="撤销删除"
+            label="Undo Delete"
             :round="false"
             size="small"
             @action="undoDeleteTerm"
