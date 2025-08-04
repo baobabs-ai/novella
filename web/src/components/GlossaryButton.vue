@@ -180,7 +180,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
             v-model:value="termsToAdd"
             size="small"
             separator="=>"
-            :placeholder="['日文', '中文']"
+            :placeholder="['Japanese', 'English']"
             :input-props="{ spellcheck: false }"
           />
           <c-button
@@ -270,7 +270,7 @@ const downloadGlossaryAsJsonFile = async (ev: MouseEvent) => {
           <n-input
             v-model:value="glossary[wordJp]"
             size="tiny"
-            placeholder="请输入中文翻译"
+            placeholder="Please enter English translation"
             :theme-overrides="{
               border: '0',
               color: 'transprent',

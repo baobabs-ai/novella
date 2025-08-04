@@ -189,7 +189,7 @@ const showDownloadModal = ref(false);
 
         <c-action-wrapper
           v-if="gnid.type === 'web'"
-          title="中文文件名"
+                        title="English filename"
           align="center"
         >
           <n-switch

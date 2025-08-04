@@ -62,7 +62,7 @@ suspend fun makeEpubFile(
                 it.appendElement("p").appendText(MISSING_EPISODE_HINT)
             } else {
                 chapter.missingTranslations.forEach { id ->
-                    it.appendElement("p").appendText("${id}翻译缺失。")
+                    it.appendElement("p").appendText("${id} translation missing.")
                         .attr("style", "opacity:0.4;")
                 }
 

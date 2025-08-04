@@ -27,7 +27,7 @@ export const createBaiduRepository = () => {
         },
         json: {
           from,
-          to: 'zh',
+          to: 'en',
           query,
           corpusIds: [],
           domain: 'common',

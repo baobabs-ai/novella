@@ -60,7 +60,7 @@ async function beforeUpload({ file }: { file: UploadFileInfo }) {
   const p = (charsCount.jp + charsCount.ko) / charsCount.total;
   if (p < 0.33) {
     if (!props.allowZh) {
-      message.error('疑似中文小说，文库不允许上传');
+      message.error('Suspected Chinese novel, library does not allow upload');
       return false;
     } else {
       file.url = 'zh';

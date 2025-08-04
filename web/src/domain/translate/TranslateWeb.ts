@@ -46,7 +46,7 @@ export const translateWeb = async (
       callback.log(`中止翻译任务`);
       return 'abort';
     } else {
-      callback.log(`发生错误，结束翻译任务：${e}`);
+      callback.log(`Error occurred, ending translation task: ${e}`);
       return;
     }
   }
@@ -217,13 +217,13 @@ export const translateWeb = async (
       }
     } catch (e) {
       if (e === 'quit') {
-        callback.log(`发生错误，结束翻译任务`);
+        callback.log(`Error occurred, ending translation task`);
         return;
       } else if (e instanceof DOMException && e.name === 'AbortError') {
         callback.log(`中止翻译任务`);
         return 'abort';
       } else {
-        callback.log(`发生错误，跳过：${await formatError(e)}`);
+        callback.log(`Error occurred, skipping: ${await formatError(e)}`);
         callback.onChapterFailure();
       }
     }

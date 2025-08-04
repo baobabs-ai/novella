@@ -101,7 +101,7 @@ const submit = async () => {
       <n-form-item label="日文标题">
         {{ formValue.titleJp }}
       </n-form-item>
-      <n-form-item path="title" label="中文标题">
+              <n-form-item path="title" label="English Title">
         <n-input
           v-model:value="formValue.title"
           :placeholder="formValue.titleJp"
@@ -112,7 +112,7 @@ const submit = async () => {
       <n-form-item label="日文简介">
         {{ formValue.introductionJp }}
       </n-form-item>
-      <n-form-item path="introduction" label="中文简介">
+              <n-form-item path="introduction" label="English Introduction">
         <n-input
           v-model:value="formValue.introduction"
           :placeholder="formValue.introductionJp"

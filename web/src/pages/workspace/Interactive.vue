@@ -242,7 +242,7 @@ const clearSavedTranslation = () => {
                   <br />
                 </template>
               </n-collapse-item>
-              <n-collapse-item title="中文">
+              <n-collapse-item title="English">
                 <template v-for="line of t.zh.split('\n')" :key="line">
                   {{ line }}
                   <br />

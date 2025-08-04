@@ -14,7 +14,7 @@ defineProps<{ op: OperationWenkuEdit }>();
     标题：{{ op.old?.title }} => {{ op.new.title }}
   </n-p>
   <n-p v-if="op.old?.titleZh !== op.new.titleZh">
-    中文标题：{{ op.old?.titleZh }} => {{ op.new.titleZh }}
+            English Title: {{ op.old?.titleZh }} => {{ op.new.titleZh }}
   </n-p>
   <n-p v-if="!isEqual(op.old?.authors, op.new.authors)">
     作者：{{ op.old?.authors }} => {{ op.new.authors }}

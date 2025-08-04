@@ -261,7 +261,7 @@ const showWebNovelsModal = ref(false);
             metadata.volumeJp.length === 0 &&
             metadata.volumeZh.length > 0
           "
-          description="网站已撤下中文小说板块，请上传日文生成翻译"
+                      description="The website has removed the Chinese novel section, please upload Japanese to generate translations"
         />
       </template>
       <n-p v-else>游客无法查看内容，请先登录。</n-p>

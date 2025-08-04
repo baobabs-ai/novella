@@ -77,7 +77,7 @@ const formRules: FormRules = {
     {
       validator: (_rule: FormItemRule, value: string) =>
         !RegexUtil.hasKanaChars(value),
-      message: '不要使用日文当作中文标题，没有公认的标题可以尝试自行翻译',
+              message: 'Do not use Japanese as English title, if there is no official title, try translating it yourself',
       trigger: 'input',
     },
   ],
@@ -422,10 +422,10 @@ const levelOptions = [
         />
       </n-form-item-row>
 
-      <n-form-item-row path="titleZh" label="中文标题">
+      <n-form-item-row path="titleZh" label="English Title">
         <n-input
           v-model:value="formValue.titleZh"
-          placeholder="请输入中文标题"
+          placeholder="Please enter English title"
           maxlength="80"
           show-count
           :input-props="{ spellcheck: false }"

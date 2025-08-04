@@ -83,8 +83,8 @@ private class TxtWriter(
     }
 
     private fun BufferedWriter.writeMissingTranslation(translation: TranslatorId) {
-        write("${translation}翻译缺失。\n\n")
-    }
+    write("${translation} translation missing.\n\n")
+}
 
     fun BufferedWriter.writeNovel(
         novel: WebNovel,
