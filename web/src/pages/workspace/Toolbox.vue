@@ -38,7 +38,7 @@ const loadLocalFile = (volumeId: string) =>
   Locator.localVolumeRepository()
     .then((repo) => repo.getFile(volumeId))
     .then((file) => {
-      if (file === undefined) throw '小说不存在';
+      if (file === undefined) throw 'Novel does not exist';
       return loadFile(file.file);
     })
     .catch((error) => message.error(`文件载入失败：${error}`));
@@ -62,7 +62,7 @@ const showListModal = ref(false);
 
 <template>
   <div class="layout-content">
-    <n-h1>小说工具箱</n-h1>
+    <n-h1>Novel Toolbox</n-h1>
 
     <n-flex>
       <div>

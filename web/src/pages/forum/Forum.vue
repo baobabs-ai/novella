@@ -22,9 +22,9 @@ const isBlocked = (userName: string) =>
   blockUserCommentRepository.ref.value.usernames.includes(userName);
 
 const articleCategoryOptions = [
-  { value: 'General', label: '小说交流' },
-  { value: 'Guide', label: '使用指南' },
-  { value: 'Support', label: '反馈与建议' },
+  { value: 'General', label: 'Novel Discussion' },
+  { value: 'Guide', label: 'Usage Guide' },
+  { value: 'Support', label: 'Feedback and Suggestions' },
 ];
 
 const onUpdateCategory = (category: ArticleCategory) => {

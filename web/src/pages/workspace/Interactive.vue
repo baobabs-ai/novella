@@ -50,7 +50,7 @@ const translate = async () => {
       (it) => it.id === selectedGptWorkerId.value,
     );
     if (worker === undefined) {
-      message.error('未选择GPT翻译器');
+      message.error('No GPT translator selected');
       return;
     }
     selectedWorker = worker;
@@ -66,7 +66,7 @@ const translate = async () => {
       (it) => it.id === selectedSakuraWorkerId.value,
     );
     if (worker === undefined) {
-      message.error('未选择Sakura翻译器');
+      message.error('No Sakura translator selected');
       return;
     }
     selectedWorker = worker;
@@ -90,7 +90,7 @@ const translate = async () => {
     });
     textZh.value = linesZh.join('\n');
   } catch (e: unknown) {
-    message.error(`翻译器错误：${e}`);
+    message.error(`Translator error: ${e}`);
   }
 
   savedTranslation.value.push({
@@ -107,7 +107,7 @@ const clearTranslation = () => {
 };
 const copyToClipboard = () => {
   navigator.clipboard.writeText(textZh.value);
-  message.info('已经将翻译结果复制到剪切板');
+  message.info('Translation result has been copied to clipboard');
 };
 const clearSavedTranslation = () => {
   savedTranslation.value = [];
@@ -116,10 +116,10 @@ const clearSavedTranslation = () => {
 
 <template>
   <div class="layout-content">
-    <n-h1>交互翻译</n-h1>
+    <n-h1>Interactive Translation</n-h1>
 
     <n-flex vertical>
-      <c-action-wrapper title="翻译">
+      <c-action-wrapper title="Translation">
         <n-flex vertical>
           <c-radio-group
             v-model:value="translatorId"
@@ -170,14 +170,14 @@ const clearSavedTranslation = () => {
       <c-action-wrapper title="操作">
         <n-flex style="margin-bottom: 16px">
           <n-button-group size="small">
-            <c-button label="翻译" :round="false" @action="translate" />
-            <c-button label="清空" :round="false" @action="clearTranslation" />
+            <c-button label="Translate" :round="false" @action="translate" />
+            <c-button label="Clear" :round="false" @action="clearTranslation" />
           </n-button-group>
 
           <glossary-button :value="glossary" :round="false" size="small" />
 
           <c-button
-            label="复制到剪贴板"
+            label="Copy to Clipboard"
             :round="false"
             size="small"
             @action="copyToClipboard"
@@ -189,7 +189,7 @@ const clearSavedTranslation = () => {
     <n-input-group>
       <n-input
         v-model:value="textJp"
-        placeholder="输入需要翻译的文本"
+        placeholder="Enter text to translate"
         type="textarea"
         :autosize="{ minRows: 15 }"
         show-count
@@ -201,7 +201,7 @@ const clearSavedTranslation = () => {
       <n-input
         v-model:value="textZh"
         readonly
-        placeholder="翻译结果"
+        placeholder="Translation result"
         type="textarea"
         :autosize="{ minRows: 15 }"
         show-count
@@ -210,11 +210,11 @@ const clearSavedTranslation = () => {
       />
     </n-input-group>
 
-    <section-header title="翻译历史">
-      <c-button label="清空" @action="clearSavedTranslation" />
+    <section-header title="Translation History">
+      <c-button label="Clear" @action="clearSavedTranslation" />
     </section-header>
 
-    <n-empty v-if="savedTranslation.length === 0" description="没有翻译历史" />
+    <n-empty v-if="savedTranslation.length === 0" description="No translation history" />
     <n-list>
       <n-list-item v-for="t of savedTranslation" :key="t.id">
         <n-thing content-indented>
@@ -236,13 +236,13 @@ const clearSavedTranslation = () => {
 
           <template #description>
             <n-collapse style="margin-top: 16px">
-              <n-collapse-item title="日文">
+              <n-collapse-item title="Japanese">
                 <template v-for="line of t.jp.split('\n')" :key="line">
                   {{ line }}
                   <br />
                 </template>
               </n-collapse-item>
-              <n-collapse-item title="中文">
+              <n-collapse-item title="English">
                 <template v-for="line of t.zh.split('\n')" :key="line">
                   {{ line }}
                   <br />

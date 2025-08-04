@@ -50,7 +50,7 @@ export class YoudaoTranslator implements SegmentTranslator {
       from = 'en';
     }
 
-    const decoded = await this.api.webtranslate(seg.join('\n'), from, {
+    const decoded = await this.api.webtranslate(seg.join('\n'), from, 'en', {
       signal,
     });
     const decodedJson = safeJson<{ translateResult: { tgt: string }[][] }>(
@@ -58,7 +58,7 @@ export class YoudaoTranslator implements SegmentTranslator {
     );
 
     if (decodedJson === undefined) {
-      this.log(`　错误：${decoded}`);
+      this.log(`　Error: ${decoded}`);
       throw 'quit';
     } else {
       try {
@@ -67,7 +67,7 @@ export class YoudaoTranslator implements SegmentTranslator {
         );
         return result;
       } catch (e) {
-        this.log(`　错误：${decoded}`);
+        this.log(`　Error: ${decoded}`);
         throw 'quit';
       }
     }

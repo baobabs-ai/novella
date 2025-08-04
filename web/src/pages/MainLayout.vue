@@ -61,56 +61,56 @@ const menuOptions = computed<MenuOption[]>(() => {
 
   return [
     {
-      label: renderLabel('首页', '/'),
+      label: renderLabel('Home', '/'),
       icon: renderIcon(HomeOutlined),
       key: '/',
     },
     {
       label: renderLabel(
-        '我的收藏',
+        'My Favorites',
         whoami.value.isSignedIn ? '/favorite/web' : '/favorite/local',
       ),
       icon: renderIcon(StarBorderOutlined),
       key: '/favorite',
     },
     {
-      label: renderLabel('阅读历史', '/read-history'),
+      label: renderLabel('Reading History', '/read-history'),
       icon: renderIcon(HistoryOutlined),
       key: '/read-history',
       show: whoami.value.isSignedIn,
     },
     {
-      label: renderLabel('网络小说', '/novel'),
+      label: renderLabel('Web Novels', '/novel'),
       icon: renderIcon(LanguageOutlined),
       key: '/novel',
     },
     {
-      label: renderLabel('文库小说', '/wenku'),
+      label: renderLabel('Light Novels', '/wenku'),
       icon: renderIcon(BookOutlined),
       key: '/wenku',
     },
     {
-      label: '小说排行',
+      label: 'Novel Rankings',
       icon: renderIcon(LocalFireDepartmentOutlined),
       key: '/rank',
       children: [
         {
-          label: renderLabel('成为小说家：流派', '/rank/web/syosetu/1'),
+          label: renderLabel('Syosetu: Genre', '/rank/web/syosetu/1'),
           key: '/rank/web/syosetu/1',
         },
         {
-          label: renderLabel('成为小说家：综合', '/rank/web/syosetu/2'),
+          label: renderLabel('Syosetu: Overall', '/rank/web/syosetu/2'),
           key: '/rank/web/syosetu/2',
         },
         {
           label: renderLabel(
-            '成为小说家：异世界转移/转生',
+            'Syosetu: Isekai/Reincarnation',
             '/rank/web/syosetu/3',
           ),
           key: '/rank/web/syosetu/3',
         },
         {
-          label: renderLabel('Kakuyomu：流派', '/rank/web/kakuyomu/1'),
+          label: renderLabel('Kakuyomu: Genre', '/rank/web/kakuyomu/1'),
           key: '/rank/web/kakuyomu/1',
         },
       ],
@@ -121,35 +121,35 @@ const menuOptions = computed<MenuOption[]>(() => {
       props: { style: { marginTop: '16px', marginBottom: '16px' } },
     },
     {
-      label: '工作区',
+      label: 'Workspace',
       icon: renderIcon(WorkspacesOutlined),
       key: '/workspace',
       children: [
         {
-          label: renderLabel('小说工具箱', '/workspace/toolbox'),
+          label: renderLabel('Novel Toolbox', '/workspace/toolbox'),
           key: '/workspace/toolbox',
         },
         {
-          label: renderLabel('GPT工作区', '/workspace/gpt'),
+          label: renderLabel('GPT Workspace', '/workspace/gpt'),
           key: '/workspace/gpt',
         },
         {
-          label: renderLabel('Sakura工作区', '/workspace/sakura'),
+          label: renderLabel('Sakura Workspace', '/workspace/sakura'),
           key: '/workspace/sakura',
         },
         {
-          label: renderLabel('交互翻译', '/workspace/interactive'),
+          label: renderLabel('Interactive Translation', '/workspace/interactive'),
           key: '/workspace/interactive',
         },
       ],
     },
     {
-      label: renderLabel('论坛', '/forum'),
+      label: renderLabel('Forum', '/forum'),
       icon: renderIcon(ForumOutlined),
       key: '/forum',
     },
     {
-      label: renderLabel('设置', '/setting'),
+      label: renderLabel('Settings', '/setting'),
       icon: renderIcon(SettingsOutlined),
       key: '/setting',
     },
@@ -166,13 +166,13 @@ const menuOptions = computed<MenuOption[]>(() => {
               }
             },
           },
-          { default: () => '切换主题' },
+          { default: () => 'Toggle Theme' },
         ),
       icon: renderIcon(theme === 'light' ? WbSunnyOutlined : DarkModeOutlined),
       key: 'theme',
     },
     {
-      label: renderLabel('控制台', '/admin'),
+      label: renderLabel('Admin Console', '/admin'),
       icon: renderIcon(CandlestickChartOutlined),
       key: '/admin',
       show: whoami.value.asMaintainer,
@@ -191,11 +191,11 @@ const menuKey = computed(() => {
 });
 
 const roleToString = (role: UserRole) => {
-  if (role === 'normal') return '普通用户';
-  else if (role === 'trusted') return '信任用户';
-  else if (role === 'maintainer') return '维护者';
-  else if (role === 'admin') return '管理员';
-  else if (role === 'banned') return '封禁用户';
+  if (role === 'normal') return 'Normal User';
+  else if (role === 'trusted') return 'Trusted User';
+  else if (role === 'maintainer') return 'Maintainer';
+  else if (role === 'admin') return 'Administrator';
+  else if (role === 'banned') return 'Banned User';
   else return role satisfies never;
 };
 
@@ -252,7 +252,7 @@ const userDropdownOptions = computed<MenuOption[]>(() => {
       type: 'divider',
     },
     {
-      label: '退出账号',
+      label: 'Sign Out',
       key: 'sign-out',
       icon: renderIcon(LogOutOutlined),
     },
@@ -318,7 +318,7 @@ watch(
             v-else
             :to="{ name: 'sign-in', query: { from: route.fullPath } }"
           >
-            <n-button quaternary>登录/注册</n-button>
+            <n-button quaternary>Login/Register</n-button>
           </router-link>
         </div>
       </n-flex>

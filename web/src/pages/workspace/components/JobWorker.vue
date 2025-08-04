@@ -167,7 +167,7 @@ const testWorker = async () => {
       );
     }
   } catch (e: unknown) {
-    message.error(`翻译器错误：${e}`);
+    message.error(`Translator error: ${e}`);
   }
 };
 
@@ -232,13 +232,13 @@ const showEditWorkerModal = ref(false);
 
         <c-icon-button
           v-if="enableAutoMode"
-          tooltip="自动翻译下个任务：已启动"
+          tooltip="Auto-translate next task: Started"
           :icon="FontDownloadOutlined"
           @action="enableAutoMode = false"
         />
         <c-icon-button
           v-else
-          tooltip="自动翻译下个任务：已关闭"
+          tooltip="Auto-translate next task: Stopped"
           :icon="FontDownloadOffOutlined"
           @action="enableAutoMode = true"
         />

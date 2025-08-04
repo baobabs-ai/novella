@@ -76,9 +76,9 @@ const addFavorite = async () => {
         <c-radio-group
           v-model:value="formValue.type"
           :options="[
-            { label: '网页小说', value: 'web' },
-            { label: '文库小说', value: 'wenku' },
-            { label: '本地小说', value: 'local' },
+            { label: 'Web Novels', value: 'web' },
+            { label: 'Light Novels', value: 'wenku' },
+            { label: 'Local Novels', value: 'local' },
           ]"
         />
       </n-form-item-row>
