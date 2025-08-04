@@ -146,7 +146,7 @@ export class Translator {
           return cachedSegOutput;
         }
       } catch (e) {
-        console.error('缓存读取失败');
+        console.error('Cache read failed');
         console.error(e);
       }
     }
@@ -175,7 +175,7 @@ export class Translator {
       try {
         await this.segCache.save(cacheKey, segOutput);
       } catch (e) {
-        console.error('缓存保存失败');
+        console.error('Cache save failed');
         console.error(e);
       }
     }

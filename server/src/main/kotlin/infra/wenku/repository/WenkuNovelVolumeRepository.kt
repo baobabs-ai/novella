@@ -113,7 +113,7 @@ class WenkuNovelVolumeRepository(
                 volume.listChapter().sorted().forEach { chapterId ->
                     val zhLinesList = getZhLinesList(chapterId)
                     if (zhLinesList.isEmpty()) {
-                        bf.appendLine("// 该分段翻译缺失。")
+                        bf.appendLine("// This segment translation is missing.")
                     } else {
                         val jpLines = volume.getChapter(chapterId)!!
                         val linesList = when (mode) {
@@ -188,11 +188,11 @@ class WenkuNovelVolumeRepository(
                     val metadataEl = doc.selectFirst("metadata")!!
                     val spineEl = doc.selectFirst("spine")!!
 
-                    // 修改 EPUB 语言为简体中文，让 iOS iBook 阅读器可以使用中文字体
+                    // 修改 EPUB 语言为英文，让 iOS iBook 阅读器可以使用英文字体
                     metadataEl.selectFirst("dc|language")
-                        ?.text("zh-CN")
+                        ?.text("en")
                         ?: metadataEl.appendChild(
-                            Element("dc:language").text("zh-CN")
+                            Element("dc:language").text("en")
                         )
 
                     // 防止阅读器使用竖排

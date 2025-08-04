@@ -76,7 +76,7 @@ export const createYoudaoRepository = () => {
         body: new URLSearchParams({
           i: query,
           from,
-          to: 'zh-CHS',
+          to: 'en',
           dictResult: 'true',
           keyid: 'webfanyi',
           ...getBaseBody(key),

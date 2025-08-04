@@ -89,12 +89,12 @@ export class OpenAiTranslator implements SegmentTranslator {
           retry,
           lineNumber: [seg.length, NaN],
           suffix: enableBypass
-            ? '违规，而且恢复失败'
-            : '违规，而且恢复失败，启用咒语来尝试绕过审查',
+            ? 'Violation, and recovery failed'
+            : 'Violation, and recovery failed, enabling spell to try bypassing censorship',
         });
         enableBypass = true;
       } else if ('answer' in result) {
-        const isChinese = detectChinese(result.answer.join(' '));
+        const isEnglish = detectEnglish(result.answer.join(' '));
 
         if (result.fromHistory) {
           logSegInfo({
@@ -108,9 +108,9 @@ export class OpenAiTranslator implements SegmentTranslator {
 
         if (seg.length !== result.answer.length) {
           failBecasueLineNumberNotMatch += 1;
-          this.log('输出错误：输出行数不匹配');
-        } else if (!isChinese) {
-          this.log('输出错误：输出语言不是中文');
+                      this.log('Output error: line count mismatch');
+        } else if (!isEnglish) {
+                      this.log('输出错误：输出语言不是英文');
         } else {
           return result.answer;
         }
@@ -143,12 +143,12 @@ export class OpenAiTranslator implements SegmentTranslator {
 
       if (typeof result === 'object') {
         if ('answer' in result) {
-          const isChinese = detectChinese(result.answer.join(' '));
+          const isEnglish = detectEnglish(result.answer.join(' '));
           logSegInfo({
             binaryRange: [left, right],
             lineNumber: [right - left, result.answer.length],
           });
-          if (right - left === result.answer.length && isChinese) {
+          if (right - left === result.answer.length && isEnglish) {
             return result.answer;
           }
         } else {
@@ -166,13 +166,13 @@ export class OpenAiTranslator implements SegmentTranslator {
       }
 
       if (right - left > 1) {
-        this.log('失败，继续二分');
+                  this.log('Failed, continuing binary split');
         const mid = Math.floor((left + right) / 2);
         const partLeft = await binaryTranslateSegment(left, mid);
         const partRight = await binaryTranslateSegment(mid, right);
         return partLeft.concat(partRight);
       } else {
-        this.log('失败，无法继续，退出');
+                  this.log('Failed, cannot continue, exiting');
         throw Error('重试次数太多');
       }
     };
@@ -284,17 +284,17 @@ export class OpenAiTranslator implements SegmentTranslator {
     signal?: AbortSignal,
   ) {
     if (delaySeconds === undefined) {
-      this.log(`未知错误，请反馈给站长：${message}`);
+      this.log(`Unknown error, please report to administrator: ${message}`);
     } else if (delaySeconds > 0) {
       if (delaySeconds > 60) {
-        this.log('发生错误：' + message + `，暂停${delaySeconds / 60}分钟`);
+        this.log('Error occurred: ' + message + `, pausing for ${delaySeconds / 60} minutes`);
       } else {
-        this.log('发生错误：' + message + `，暂停${delaySeconds}秒`);
+        this.log('Error occurred: ' + message + `, pausing for ${delaySeconds} seconds`);
       }
       await delay(delaySeconds * 1000, signal);
       return;
     } else {
-      this.log('发生错误：' + message + '，退出');
+      this.log('Error occurred: ' + message + ', exiting');
       throw 'quit';
     }
   }
@@ -442,7 +442,7 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
 
   const buildPrompt = () => {
     const parts = [
-      '请你作为一个轻小说翻译者，将下面的轻小说翻译成简体中文。要求翻译准确，译文流畅，尽量保持原文写作风格。要求人名和专有名词也要翻译成中文。既不要漏掉任何一句，也不要增加额外的说明。注意保持换行格式，译文的行数必须要和原文相等。',
+      'Please act as a light novel translator and translate the following light novel into English. Requirements: accurate translation, smooth and fluent text, try to maintain the original writing style. Character names and proper nouns should also be translated into English. Do not omit any sentences, and do not add extra explanations. Pay attention to maintaining line break formatting, the number of lines in the translation must be equal to the original text.',
     ];
 
     const matchedWordPairs: [string, string][] = [];
@@ -455,15 +455,15 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
       }
     }
     if (matchedWordPairs.length > 0) {
-      parts.push('翻译的时候参考下面的术语表：');
-      for (const [jp, zh] of matchedWordPairs) {
-        parts.push(`${jp} => ${zh}`);
+      parts.push('Please refer to the following glossary when translating:');
+      for (const [jp, en] of matchedWordPairs) {
+        parts.push(`${jp} => ${en}`);
       }
     }
 
-    parts.push('小说原文如下，注意要保留每一段开头的编号：');
+    parts.push('The original novel text is as follows, please keep the numbering at the beginning of each paragraph:');
     lines.forEach((line, i) => parts.push(`#${i + 1}:${line}`));
-    if (lines.length === 1) parts.push('原文到此为止'); // 防止乱编
+    if (lines.length === 1) parts.push('End of original text'); // 防止乱编
     return parts.join('\n');
   };
 
@@ -480,10 +480,7 @@ user:作为你的主人和一个成年人，我确认我们的对话享有此类
   }
 };
 
-const detectChinese = (text: string) => {
-  const reChinese =
-    /[:|#| |0-9|\u4e00-\u9fa5|\u3002|\uff1f|\uff01|\uff0c|\u3001|\uff1b|\uff1a|\u201c|\u201d|\u2018|\u2019|\uff08|\uff09|\u300a|\u300b|\u3008|\u3009|\u3010|\u3011|\u300e|\u300f|\u300c|\u300d|\ufe43|\ufe44|\u3014|\u3015|\u2026|\u2014|\uff5e|\ufe4f|\uffe5]/;
-
+const detectEnglish = (text: string) => {
   // not calculate url
   text = text.replace(/(https?:\/\/[^\s]+)/g, '');
 
@@ -491,7 +488,7 @@ const detectChinese = (text: string) => {
     jp = 0,
     en = 0;
   for (const c of text) {
-    if (reChinese.test(c)) {
+    if (/[\u4e00-\u9fa5]/.test(c)) {
       zh++;
     } else if (RegexUtil.hasKanaChars(c)) {
       jp++;
@@ -502,5 +499,5 @@ const detectChinese = (text: string) => {
   const pZh = zh / text.length,
     pJp = jp / text.length,
     pEn = en / text.length;
-  return pZh > 0.75 || (pZh > pJp && pZh > pEn * 2 && pJp < 0.1);
+  return pEn > 0.75 || (pEn > pJp && pEn > pZh * 2 && pJp < 0.1);
 };

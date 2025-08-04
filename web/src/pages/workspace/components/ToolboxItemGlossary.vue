@@ -233,7 +233,7 @@ const translateKatakanas = async (id: 'baidu' | 'youdao' | 'sakura') => {
             <n-input
               v-model:value="katakanaTranslations[word]"
               size="tiny"
-              placeholder="请输入中文翻译"
+              placeholder="Please enter English translation"
               :theme-overrides="{
                 border: '0',
                 color: 'transprent',
