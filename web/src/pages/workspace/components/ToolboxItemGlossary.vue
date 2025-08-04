@@ -188,7 +188,7 @@ const translateKatakanas = async (id: 'baidu' | 'youdao' | 'sakura') => {
         <n-flex align="center" :wrap="false">
           <c-button
             :disabled="katakanaDeleted.length === 0"
-            label="撤销删除"
+            label="Undo Delete"
             :round="false"
             size="small"
             @action="undoDeleteKatakana"

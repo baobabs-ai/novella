@@ -24,7 +24,7 @@ const store = useWenkuNovelStore(props.novelId);
 
 async function beforeUpload({ file }: { file: UploadFileInfo }) {
   if (!whoami.value.isSignedIn) {
-    message.info('请先登录');
+    message.info('Please log in first');
     return false;
   }
   if (!file.file) {
@@ -35,11 +35,11 @@ async function beforeUpload({ file }: { file: UploadFileInfo }) {
       file.file!.name.startsWith(prefix),
     )
   ) {
-    message.error('不要上传本网站上生成的机翻文件');
+    message.error('Do not upload machine-translated files generated on this website');
     return false;
   }
   if (file.file.size > 1024 * 1024 * 40) {
-    message.error('文件大小不能超过40MB');
+    message.error('File size cannot exceed 40MB');
     return false;
   }
 
@@ -48,19 +48,19 @@ async function beforeUpload({ file }: { file: UploadFileInfo }) {
     content = await getFullContent(file.file);
   } catch (e) {
     console.error(e);
-    message.error(`文件解析错误:${e}`);
+    message.error(`File parsing error:${e}`);
     return false;
   }
   const charsCount = RegexUtil.countLanguageCharacters(content);
   if (charsCount.total < 500) {
-    message.error('字数过少，请检查内容是不是图片');
+    message.error('Word count too low, please check if the content is images');
     return false;
   }
 
   const p = (charsCount.jp + charsCount.ko) / charsCount.total;
   if (p < 0.33) {
     if (!props.allowZh) {
-      message.error('疑似中文小说，文库不允许上传');
+      message.error('Suspected Chinese novel, light novels are not allowed to upload');
       return false;
     } else {
       file.url = 'zh';
@@ -89,7 +89,7 @@ const customRequest = async ({
     onFinish();
   } catch (e) {
     onError();
-    message.error(`上传失败:${await formatError(e)}`);
+    message.error(`Upload failed:${await formatError(e)}`);
   }
 };
 
@@ -109,7 +109,7 @@ const uploadVolumes = () => {
 <template>
   <c-button
     v-if="!haveReadRule"
-    label="上传"
+    label="Upload"
     :icon="PlusOutlined"
     @action="uploadVolumes"
   />
@@ -121,27 +121,27 @@ const uploadVolumes = () => {
     :show-trigger="haveReadRule"
     @before-upload="beforeUpload"
   >
-    <c-button label="上传" :icon="PlusOutlined" />
+    <c-button label="Upload" :icon="PlusOutlined" />
   </n-upload>
 
   <c-modal
-    title="上传须知"
+    title="Upload Notice"
     v-model:show="showRuleModal"
     @after-leave="uploadRef?.openOpenFileDialog()"
   >
-    <n-p>在上传小说之前，请务必遵守以下规则。</n-p>
+    <n-p>Before uploading novels, please be sure to follow the following rules.</n-p>
     <n-ul>
       <n-li>
-        日文章节上传前请确定里面有文本，单卷书压缩包超40MB里面大概率只有扫图无文本，这种是无法翻译的。
+        Before uploading Japanese chapters, please make sure there is text inside. Single volume book compressed packages over 40MB are likely to contain only scanned images without text, which cannot be translated.
       </n-li>
-      <n-li>EPUB文件大小超过40MB无法上传，请压缩里面的图片。</n-li>
-      <n-li>不要上传已存在的分卷，现存的分卷有问题请联系管理员。</n-li>
-      <n-li>分卷文件名应当只包含日文标题、卷数、分卷日文标题。</n-li>
+      <n-li>EPUB files larger than 40MB cannot be uploaded, please compress the images inside.</n-li>
+      <n-li>Do not upload existing volumes, if there are problems with existing volumes, please contact the administrator.</n-li>
+      <n-li>Volume filenames should only contain Japanese titles, volume numbers, and volume Japanese titles.</n-li>
     </n-ul>
-    <n-p>由于文库小说还在开发中，规则也会变化，务必留意。</n-p>
+    <n-p>Since light novels are still under development, rules may change, please pay attention.</n-p>
 
     <template #action>
-      <c-button label="确定" type="primary" @action="showRuleModal = false" />
+      <c-button label="Confirm" type="primary" @action="showRuleModal = false" />
     </template>
   </c-modal>
 </template>

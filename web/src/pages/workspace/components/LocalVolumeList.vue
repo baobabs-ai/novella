@@ -28,14 +28,14 @@ const { volumes } = storeToRefs(store);
 store.loadVolumes();
 
 const options = computed(() => {
-  return [...Object.keys(props.options ?? {}), '批量删除'].map((it) => ({
+  return [...Object.keys(props.options ?? {}), 'Batch Delete'].map((it) => ({
     label: it,
     key: it,
   }));
 });
 const handleSelect = (key: string) => {
   switch (key) {
-    case '批量删除':
+    case 'Batch Delete':
       openDeleteModal();
       break;
     default:
@@ -175,7 +175,7 @@ const sortedVolumes = computed(() => {
         </n-p>
 
         <template #action>
-          <c-button label="确定" type="primary" @action="deleteAllVolumes" />
+          <c-button label="Confirm" type="primary" @action="deleteAllVolumes" />
         </template>
       </c-modal>
     </div>

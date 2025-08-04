@@ -203,7 +203,7 @@ const showEditWorkerModal = ref(false);
       <n-flex :size="6" :wrap="false">
         <c-button
           v-if="running"
-          label="停止"
+          label="Stop"
           :icon="StopOutlined"
           size="tiny"
           secondary
@@ -211,7 +211,7 @@ const showEditWorkerModal = ref(false);
         />
         <c-button
           v-else
-          label="启动"
+          label="Start"
           :icon="PlayArrowOutlined"
           size="tiny"
           secondary
@@ -219,7 +219,7 @@ const showEditWorkerModal = ref(false);
         />
 
         <c-icon-button
-          tooltip="测试"
+          tooltip="Test"
           :icon="FlashOnOutlined"
           @action="testWorker"
         />
@@ -244,7 +244,7 @@ const showEditWorkerModal = ref(false);
         />
 
         <c-icon-button
-          tooltip="删除"
+          tooltip="Delete"
           :icon="DeleteOutlineOutlined"
           type="error"
           @action="deleteWorker"

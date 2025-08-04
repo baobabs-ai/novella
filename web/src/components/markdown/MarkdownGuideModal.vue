@@ -10,7 +10,7 @@ const guides = [
   `
 **粗体**
 *斜体*
-~~删除线~~
+~~Strikethrough~~
 [链接](https://www.esjzone.cc/)`,
 
   `

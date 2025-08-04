@@ -100,12 +100,12 @@ const selectedFavoredId = ref(props.favored ?? 'default');
         >
           {{ favoredItem.title }}
         </n-radio>
-        <n-radio key="deleted" value="deleted">取消收藏</n-radio>
+        <n-radio key="deleted" value="deleted">Unfavorite</n-radio>
       </n-flex>
     </n-radio-group>
     <template #action>
       <c-button
-        label="确定"
+        label="Confirm"
         require-login
         type="primary"
         @action="

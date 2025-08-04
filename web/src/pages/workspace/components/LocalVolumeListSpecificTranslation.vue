@@ -25,7 +25,7 @@ const { setting } = Locator.settingRepository();
 const store = useBookshelfLocalStore();
 
 const deleteVolume = (volumeId: string) =>
-  doAction(store.deleteVolume(volumeId), '删除', message);
+  doAction(store.deleteVolume(volumeId), 'Delete', message);
 
 const calculateFinished = (volume: LocalVolumeMetadata) =>
   volume.toc.filter((it) => {
@@ -76,7 +76,7 @@ const queueVolume = (volumeId: string, total: number = 65536) => {
     total: total,
   });
   if (success) {
-    message.success('排队成功');
+    message.success('Queue successful');
   } else {
     message.error('Queue failed: translation task already exists');
   }
@@ -194,7 +194,7 @@ const progressFilterFunc = computed(() => {
           <div style="flex: 1" />
 
           <c-button-confirm
-            :hint="`真的要删除《${volume.id}》吗？`"
+            :hint="`Really want to delete 《${volume.id}》?`"
             :icon="DeleteOutlineOutlined"
             size="tiny"
             secondary

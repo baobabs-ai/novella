@@ -134,7 +134,7 @@ const insert = (text: string) => {
 
 const formatBold = () => warp('**', '**', '粗体');
 const formatItalic = () => warp('*', '*', '斜体');
-const formatStrikethrough = () => warp('~~', '~~', '删除线');
+const formatStrikethrough = () => warp('~~', '~~', 'Strikethrough');
 const formatLink = () => warp('[', '](链接)', '');
 const formatSpoiler = () => warp('!!', '!!', '剧透');
 
@@ -166,7 +166,7 @@ const formatCollapsibleBlock = () =>
     @action="formatItalic"
   />
   <MarkdownToolbarButton
-    label="删除线"
+    label="Strikethrough"
     :icon="StrikethroughSOutlined"
     @action="formatStrikethrough"
   />

@@ -36,7 +36,7 @@ store.loadNovel().then((result) => {
 const translateOptions = ref<InstanceType<typeof TranslateOptions>>();
 
 const deleteVolume = (volumeId: string) =>
-  doAction(store.deleteVolume(volumeId), '删除', message);
+  doAction(store.deleteVolume(volumeId), 'Delete', message);
 
 const buildSearchLink = (tag: string) => `/wenku?query="${tag}"`;
 
@@ -112,8 +112,8 @@ const showWebNovelsModal = ref(false);
             <ReuseTagGroup
               label="出版"
               :tags="[
-                novelResult.value.publisher ?? '未知出版商',
-                novelResult.value.imprint ?? '未知文库',
+                novelResult.value.publisher ?? 'Unknown Publisher',
+                novelResult.value.imprint ?? 'Unknown Publisher',
               ]"
             />
           </n-flex>
@@ -129,7 +129,7 @@ const showWebNovelsModal = ref(false);
           v-if="whoami.allowAdvancedFeatures"
           :to="`/wenku-edit/${novelId}`"
         >
-          <c-button label="编辑" :icon="EditNoteOutlined" />
+          <c-button label="Edit" :icon="EditNoteOutlined" />
         </router-link>
 
         <favorite-button
@@ -145,7 +145,7 @@ const showWebNovelsModal = ref(false);
         />
 
         <c-modal
-          title="相关网络小说"
+          title="Related Web Novels"
           v-model:show="showWebNovelsModal"
           :extra-height="100"
         >
@@ -237,8 +237,8 @@ const showWebNovelsModal = ref(false);
 
               <c-button-confirm
                 v-if="whoami.asMaintainer"
-                :hint="`真的要删除《${volumeId}》吗？`"
-                label="删除"
+                :hint="`Really want to delete 《${volumeId}》?`"
+                label="Delete"
                 text
                 type="error"
                 style="margin-left: 16px"
